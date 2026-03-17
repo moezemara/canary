@@ -13,7 +13,7 @@ function bpClaim.onSay(player, words, param)
 	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "[War Pass] " .. msg)
 
 	-- Refresh the UI if the player has it open
-	if ok and player:isUsingOtClient() then
+	if ok and BattlePass.isOtClient(player) then
 		BattlePass.openWindow(player)
 	end
 	return true

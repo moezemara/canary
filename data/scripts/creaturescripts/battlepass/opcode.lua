@@ -16,7 +16,7 @@ function battlePassOpcode.onExtendedOpcode(player, opcode, buffer)
 	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "[War Pass] " .. msg)
 
 	-- Refresh UI
-	if player:isUsingOtClient() then
+	if BattlePass.isOtClient(player) then
 		BattlePass.openWindow(player)
 	end
 	return true

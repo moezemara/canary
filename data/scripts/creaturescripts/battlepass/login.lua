@@ -1,8 +1,9 @@
 local battlePassOnLogin = CreatureEvent("BattlePassOnLogin")
 
 function battlePassOnLogin.onLogin(player)
-	-- Register the per-session kill tracker
+	-- Register the per-session kill tracker and extended opcode handler
 	player:registerEvent("BattlePassOnKill")
+	player:registerEvent("BattlePassExtendedOpcode")
 
 	-- Daily login XP — once per calendar day
 	local kv    = BattlePass.getKv(player)

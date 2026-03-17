@@ -1,7 +1,8 @@
 local battlePass = TalkAction("/battlepass")
 
 function battlePass.onSay(player, words, param)
-	if not player:isUsingOtClient() then
+	logger.info("[BattlePass] /battlepass triggered by {}", player:getName())
+	if not BattlePass.isOtClient(player) then
 		-- Fallback text summary for non-OTClient players
 		local kv      = BattlePass.getKv(player)
 		BattlePass.ensureSeason(kv)

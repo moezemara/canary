@@ -13,7 +13,7 @@ BattlePass.TOTAL_TIERS         = 50
 
 -- XP rewards per action
 BattlePass.XP = {
-	MONSTER_KILL  = 5,
+	MONSTER_KILL  = 100,
 	PVP_KILL      = 50,
 	DAILY_LOGIN   = 200,
 	PLAYTIME_5MIN = 5,   -- granted every 5 minutes online
@@ -26,12 +26,12 @@ BattlePass.OPCODE_CLAIM = 101  -- client → server: claim tier
 -- ═══════════════════════════════════════════
 --              TIER REWARDS
 -- ═══════════════════════════════════════════
--- Item IDs (customize to your server's actual IDs)
-local SHP = 7618  -- Strong Health Potion
-local SMP = 7620  -- Strong Mana Potion
-local UHP = 7588  -- Ultimate Health Potion
-local UMP = 7591  -- Ultimate Mana Potion
-local GHP = 7590  -- Great Health Potion
+-- Item IDs (from data/items/items.xml)
+local SHP = 236    -- Strong Health Potion
+local SMP = 237    -- Strong Mana Potion
+local UHP = 7643   -- Ultimate Health Potion
+local UMP = 23373  -- Ultimate Mana Potion
+local GHP = 239    -- Great Health Potion
 
 -- Build all 50 tiers programmatically with milestones at 10, 25, 50
 BattlePass.TIERS = {}
@@ -173,9 +173,14 @@ function BattlePass.claimTier(player, tier)
 end
 
 -- ═══════════════════════════════════════════
---              HTML GENERATION
+--         CLIENT DATA GENERATION
 -- ═══════════════════════════════════════════
+--  Format: xp|hasPrem|daysLeft|<100-char bitmask>|freeIds|premIds|freeTxts|premTxts
+--  Bitmask: fc1 pc1 fc2 pc2 … fc50 pc50  ('0'/'1' per char)
+--  freeIds/premIds: comma-separated item IDs (one per tier)
+--  freeTxts/premTxts: tilde-separated reward strings (one per tier)
 
+-- kept for legacy HTML path (unused now) but also used below
 local function shortReward(r)
 	local parts = {}
 	if r.gold  and r.gold  > 0 then
@@ -185,7 +190,7 @@ local function shortReward(r)
 	if r.items then
 		for _, it in ipairs(r.items) do parts[#parts+1] = it.count .. "x" end
 	end
-	if #parts == 0 then return "—" end
+	if #parts == 0 then return "-" end
 	return table.concat(parts, " + ")
 end
 
@@ -241,75 +246,82 @@ local function tierCard(kv, i, curTier, hasPremium)
 	)
 end
 
-function BattlePass.generateHtml(player)
-	local kv       = BattlePass.getKv(player)
+-- Returns "id:count" for the primary display item of a reward.
+-- Item rewards show their stack count directly.
+-- Gold rewards use the appropriate coin denomination so the count stays readable:
+--   < 100 gp  → gold coins   (3031)  count = gp
+--   < 10000 gp → platinum coins (3035) count = gp / 100
+--   >= 10000 gp → crystal coins  (3043) count = gp / 10000
+local GOLD_COIN     = 3031
+local PLATINUM_COIN = 3035
+local CRYSTAL_COIN  = 3043
+
+local function primaryItemStr(reward)
+	if reward.items and reward.items[1] then
+		return reward.items[1].id .. ":" .. reward.items[1].count
+	end
+	if reward.gold and reward.gold > 0 then
+		local g = reward.gold
+		if g >= 10000 then
+			return CRYSTAL_COIN  .. ":" .. math.floor(g / 10000)
+		elseif g >= 100 then
+			return PLATINUM_COIN .. ":" .. math.floor(g / 100)
+		else
+			return GOLD_COIN     .. ":" .. g
+		end
+	end
+	return "3031:1"
+end
+
+function BattlePass.generateData(player)
+	local kv      = BattlePass.getKv(player)
 	BattlePass.ensureSeason(kv)
-	local xp        = kv:get("xp") or 0
-	local curTier   = BattlePass.getCurrentTier(xp)
-	local hasPrem   = kv:get("has_premium") or false
-	local totalXp   = BattlePass.TOTAL_TIERS * BattlePass.XP_PER_TIER
-	local xpPct     = math.min(math.floor(xp / totalXp * 100), 100)
-	local daysLeft  = BattlePass.getDaysRemaining()
-	local nextXp    = (curTier < BattlePass.TOTAL_TIERS) and ((curTier + 1) * BattlePass.XP_PER_TIER - xp) or 0
+	local xp      = kv:get("xp") or 0
+	local hasPrem = kv:get("has_premium") or false
+	local days    = BattlePass.getDaysRemaining()
 
-	local premBadge = hasPrem
-		and '<span style="background:#9b59b6;color:#fff;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:bold;">&#11088; PREMIUM</span>'
-		or  '<span style="background:#333;color:#888;padding:4px 14px;border-radius:20px;font-size:12px;">FREE TRACK</span>'
-
-	-- Header + XP bar
-	local html = string.format([[<div style="background:#0d1117;color:#e6edf3;font-family:sans-serif;padding:20px;min-width:840px;">
-<table width="100%%"><tr>
-<td><span style="color:#f0c040;font-size:22px;font-weight:bold;">&#9876; WAR PASS &middot; SEASON %d</span><br/>
-<span style="color:#8b949e;font-size:12px;">%d days remaining &nbsp;&bull;&nbsp; %s &bull; %s XP &nbsp;&bull;&nbsp; Tier %d &sol; %d</span></td>
-<td align="right" valign="middle">%s</td></tr></table>
-<div style="height:1px;background:#30363d;margin:12px 0;"></div>
-<table width="100%%"><tr><td style="background:#21262d;border-radius:6px;height:14px;padding:0;">
-<table width="100%%"><tr>
-<td width="%d%%" style="background:linear-gradient(90deg,#e94560,#f0c040);border-radius:6px;height:14px;padding:0;font-size:1px;">&nbsp;</td>
-<td style="height:14px;padding:0;font-size:1px;">&nbsp;</td>
-</tr></table></td></tr></table>
-<div style="color:#8b949e;font-size:11px;margin-top:5px;">
-Monster kill <span style="color:#f0c040;">+%d XP</span> &nbsp;&bull;&nbsp;
-PvP kill <span style="color:#e94560;">+%d XP</span> &nbsp;&bull;&nbsp;
-Daily login <span style="color:#7ee787;">+%d XP</span> &nbsp;&bull;&nbsp;
-5 min playtime <span style="color:#79c0ff;">+%d XP</span>
-%s
-</div>
-<div style="height:1px;background:#30363d;margin:12px 0;"></div>
-<table>]],
-		BattlePass.SEASON,
-		daysLeft,
-		string.format("%d/%d XP", xp, totalXp),
-		nextXp > 0 and (nextXp .. " to next tier") or "MAX TIER",
-		curTier, BattlePass.TOTAL_TIERS,
-		premBadge,
-		xpPct,
-		BattlePass.XP.MONSTER_KILL,
-		BattlePass.XP.PVP_KILL,
-		BattlePass.XP.DAILY_LOGIN,
-		BattlePass.XP.PLAYTIME_5MIN,
-		nextXp > 0 and "" or '<span style="color:#f0c040;font-weight:bold;">&nbsp;&bull;&nbsp; &#128081; Season Complete!</span>'
-	)
-
-	-- Tier grid (10 per row)
+	-- Build 100-char bitmask: fc1 pc1 fc2 pc2 … fc50 pc50
+	local bits = {}
 	for i = 1, BattlePass.TOTAL_TIERS do
-		if (i - 1) % 10 == 0 then html = html .. "<tr>" end
-		html = html .. tierCard(kv, i, curTier, hasPrem)
-		if i % 10 == 0 then html = html .. "</tr>" end
+		bits[#bits+1] = (kv:get("fc_" .. i) or false) and "1" or "0"
+		bits[#bits+1] = (kv:get("pc_" .. i) or false) and "1" or "0"
 	end
 
-	-- Footer
-	html = html .. [[</table>
-<div style="height:1px;background:#30363d;margin:12px 0;"></div>
-<div style="color:#8b949e;font-size:12px;text-align:center;">
-Select a tier in the list below and click <b style="color:#e6edf3;">Claim Reward</b> &mdash;
-or type <span style="color:#f0c040;font-weight:bold;">/bpclaim [tier]</span> directly in chat
-</div></div>]]
+	-- Build item ID and reward text lists (one per tier)
+	local freeIds  = {}
+	local premIds  = {}
+	local freeTxts = {}
+	local premTxts = {}
+	for i = 1, BattlePass.TOTAL_TIERS do
+		local td = BattlePass.TIERS[i]
+		freeIds[#freeIds+1]   = primaryItemStr(td.free)
+		premIds[#premIds+1]   = primaryItemStr(td.premium)
+		freeTxts[#freeTxts+1] = shortReward(td.free)
+		premTxts[#premTxts+1] = shortReward(td.premium)
+	end
 
-	return html
+	return string.format("%d|%s|%d|%s|%s|%s|%s|%s",
+		xp,
+		hasPrem and "1" or "0",
+		days,
+		table.concat(bits),
+		table.concat(freeIds,  ","),
+		table.concat(premIds,  ","),
+		table.concat(freeTxts, "~"),
+		table.concat(premTxts, "~")
+	)
+end
+
+function BattlePass.isOtClient(player)
+	local clientOs = player:getClient().os
+	return clientOs >= 10  -- CLIENTOS_OTCLIENT_LINUX
 end
 
 function BattlePass.openWindow(player)
-	local html = BattlePass.generateHtml(player)
-	player:sendExtendedOpcode(BattlePass.OPCODE_OPEN, html)
+	local data = BattlePass.generateData(player)
+	local msg = NetworkMessage()
+	msg:addByte(0x32)
+	msg:addByte(BattlePass.OPCODE_OPEN)
+	msg:addString(data)
+	msg:sendToPlayer(player)
 end
