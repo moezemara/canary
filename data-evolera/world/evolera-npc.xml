@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<npcs>
+	<npc centerx="902" centery="869" centerz="4" radius="1">
+		<npc name="Maya" x="-1" y="0" z="4" spawntime="60" />
+	</npc>
+	<npc centerx="910" centery="877" centerz="4" radius="1">
+		<npc name="Varkhal" x="0" y="-1" z="4" spawntime="60" />
+	</npc>
+	<npc centerx="1136" centery="1714" centerz="4" radius="30">
+		<npc name="Malak" x="1" y="0" z="4" spawntime="60" />
+	</npc>
+	<npc centerx="3968" centery="3929" centerz="4" radius="5">
+		<npc name="Talent" x="-3" y="0" z="4" spawntime="10" />
+	</npc>
+	<npc centerx="902" centery="869" centerz="5" radius="1">
+		<npc name="Lola" x="0" y="0" z="5" spawntime="60" />
+	</npc>
+	<npc centerx="909" centery="877" centerz="5" radius="1">
+		<npc name="Malak" x="1" y="-1" z="5" spawntime="60" />
+	</npc>
+	<npc centerx="1132" centery="1698" centerz="5" radius="30">
+		<npc name="Frodo" x="9" y="-10" z="5" spawntime="60" />
+		<npc name="Varkhal" x="-3" y="3" z="5" spawntime="60" />
+	</npc>
+	<npc centerx="2040" centery="2170" centerz="5" radius="5">
+		<npc name="Safetina The Stripper" x="1" y="-1" z="5" spawntime="10" />
+	</npc>
+	<npc centerx="902" centery="869" centerz="6" radius="1">
+		<npc name="Soya" x="0" y="0" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="910" centery="877" centerz="6" radius="1">
+		<npc name="Frodo" x="0" y="-1" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="2403" centery="929" centerz="6" radius="2">
+		<npc name="Malak" x="-1" y="-1" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="2200" centery="935" centerz="6" radius="3">
+		<npc name="Johnny" x="0" y="0" z="6" spawntime="1" />
+	</npc>
+	<npc centerx="895" centery="937" centerz="6" radius="7">
+		<npc name="Varkhal" x="6" y="-5" z="6" spawntime="60" />
+		<npc name="Malak" x="-5" y="2" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="2213" centery="948" centerz="6" radius="3">
+		<npc name="Varkhal" x="0" y="0" z="6" spawntime="1" />
+	</npc>
+	<npc centerx="2425" centery="954" centerz="6" radius="25">
+		<npc name="Talent" x="-1" y="3" z="6" spawntime="333" />
+	</npc>
+	<npc centerx="940" centery="978" centerz="6" radius="3">
+		<npc name="Captain Wille" x="0" y="0" z="6" spawntime="10" />
+	</npc>
+	<npc centerx="2597" centery="1005" centerz="6" radius="5">
+		<npc name="Frodo" x="-1" y="-3" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="1114" centery="1696" centerz="6" radius="30">
+		<npc name="Maya" x="25" y="-8" z="6" spawntime="60" />
+		<npc name="Donald" x="1" y="5" z="6" spawntime="60" />
+		<npc name="Malak" x="17" y="14" z="6" spawntime="60" />
+		<npc name="Soya" x="22" y="15" z="6" spawntime="60" />
+		<npc name="Frodo" x="22" y="21" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="1157" centery="1738" centerz="6" radius="30">
+		<npc name="Varkhal" x="-1" y="-1" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="1985" centery="2114" centerz="6" radius="5">
+		<npc name="Talent" x="3" y="-5" z="6" spawntime="333" />
+		<npc name="Monster Missions" x="3" y="-2" z="6" spawntime="333" />
+	</npc>
+	<npc centerx="3259" centery="2593" centerz="6" radius="1">
+		<npc name="Soya" x="-1" y="-1" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="3259" centery="2602" centerz="6" radius="1">
+		<npc name="Frodo" x="-1" y="-1" z="6" spawntime="60" />
+	</npc>
+	<npc centerx="910" centery="877" centerz="7" radius="1">
+		<npc name="Donald" x="-1" y="0" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="2400" centery="928" centerz="7" radius="2">
+		<npc name="Varkhal" x="0" y="-2" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="895" centery="937" centerz="7" radius="7">
+		<npc name="Lola" x="6" y="-5" z="7" spawntime="60" />
+		<npc name="Donald" x="-4" y="-4" z="7" spawntime="60" />
+		<npc name="Maya" x="-5" y="4" z="7" spawntime="60" />
+		<npc name="Frodo" x="5" y="4" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="2425" centery="952" centerz="7" radius="5">
+		<npc name="Wizard of Fire" x="0" y="-1" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="2424" centery="961" centerz="7" radius="5">
+		<npc name="Talent" x="5" y="-3" z="7" spawntime="60" />
+		<npc name="Monster Missions" x="2" y="3" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="990" centery="988" centerz="7" radius="5">
+		<npc name="Shops" x="0" y="-1" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="2365" centery="990" centerz="7" radius="5">
+		<npc name="Jocke The Priest" x="1" y="-1" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="868" centery="1056" centerz="7" radius="2">
+		<npc name="Donald" x="0" y="0" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="867" centery="1062" centerz="7" radius="2">
+		<npc name="Malak" x="1" y="-1" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="1134" centery="1180" centerz="7" radius="1">
+		<npc name="Minigame" x="-1" y="1" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="925" centery="1183" centerz="7" radius="10">
+		<npc name="Donald" x="-7" y="5" z="7" spawntime="18" />
+	</npc>
+	<npc centerx="674" centery="1337" centerz="7" radius="1">
+		<npc name="Malak" x="-1" y="0" z="7" spawntime="18" />
+	</npc>
+	<npc centerx="1649" centery="1339" centerz="7" radius="30">
+		<npc name="harry potter" x="-24" y="14" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="640" centery="1360" centerz="7" radius="1">
+		<npc name="Lola" x="0" y="0" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="660" centery="1375" centerz="7" radius="1">
+		<npc name="Frodo" x="-1" y="-1" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="1137" centery="1406" centerz="7" radius="19">
+		<npc name="Minigame" x="-7" y="-10" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="1114" centery="1700" centerz="7" radius="5">
+		<npc name="Donald" x="2" y="1" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="1111" centery="1701" centerz="7" radius="30">
+		<npc name="Donald" x="27" y="-13" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="2427" centery="2023" centerz="7" radius="5">
+		<npc name="Donald" x="-2" y="1" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="2043" centery="2168" centerz="7" radius="5">
+		<npc name="Minigame" x="0" y="1" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="3774" centery="2684" centerz="7" radius="5">
+		<npc name="Frodo" x="-2" y="0" z="7" spawntime="60" />
+	</npc>
+	<npc centerx="3966" centery="3928" centerz="7" radius="5">
+		<npc name="Monster Missions" x="0" y="0" z="7" spawntime="10" />
+	</npc>
+	<npc centerx="2409" centery="919" centerz="8" radius="2">
+		<npc name="Donald" x="1" y="0" z="8" spawntime="60" />
+	</npc>
+	<npc centerx="900" centery="961" centerz="8" radius="5">
+		<npc name="Talent" x="-5" y="4" z="8" spawntime="10" />
+	</npc>
+	<npc centerx="901" centery="970" centerz="8" radius="1">
+		<npc name="Monster Missions" x="1" y="0" z="8" spawntime="10" />
+	</npc>
+	<npc centerx="979" centery="971" centerz="8" radius="1">
+		<npc name="Monster Missions" x="-1" y="0" z="8" spawntime="10" />
+		<npc name="Talent" x="0" y="0" z="8" spawntime="10" />
+	</npc>
+	<npc centerx="1013" centery="1071" centerz="8" radius="20">
+		<npc name="Drug Dealer [GN]" x="-2" y="-2" z="8" spawntime="10" />
+	</npc>
+	<npc centerx="629" centery="1358" centerz="8" radius="21">
+		<npc name="Donald" x="2" y="1" z="8" spawntime="18" />
+	</npc>
+	<npc centerx="3261" centery="2613" centerz="8" radius="5">
+		<npc name="Alice" x="-1" y="0" z="8" spawntime="60" />
+	</npc>
+	<npc centerx="1159" centery="1687" centerz="9" radius="30">
+		<npc name="Aldo" x="-3" y="-4" z="9" spawntime="60" />
+		<npc name="Ringero" x="1" y="-4" z="9" spawntime="60" />
+		<npc name="Naprawa Firewalker Boots" x="7" y="-4" z="9" spawntime="60" />
+	</npc>
+</npcs>

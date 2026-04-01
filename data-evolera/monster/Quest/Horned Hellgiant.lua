@@ -1,0 +1,105 @@
+local mType = Game.createMonsterType("Horned Hellgiant")
+local monster = {}
+
+monster.description = "a horned hellgiant"
+monster.experience = 10000
+monster.outfit = {
+	lookType = 12,
+	lookHead = 19,
+	lookBody = 96,
+	lookLegs = 21,
+	lookFeet = 81,
+	lookAddons = 0,
+	lookMount = 0,
+}
+
+monster.raceId = 0
+monster.health = 400000000
+monster.maxHealth = 400000000
+monster.race = "blood"
+monster.corpse = 6068
+monster.speed = 400
+monster.manaCost = 0
+
+monster.changeTarget = {
+	interval = 5000,
+	chance = 8,
+}
+
+monster.strategiesTarget = {
+	nearest = 100,
+}
+
+monster.flags = {
+	summonable = false,
+	attackable = true,
+	hostile = true,
+	convinceable = false,
+	pushable = false,
+	rewardBoss = false,
+	illusionable = false,
+	canPushItems = true,
+	canPushCreatures = true,
+	staticAttackChance = 85,
+	targetDistance = 1,
+	runHealth = 0,
+}
+
+monster.attacks = {
+		{name = "melee", interval = 20, skill = 150, attack = 3000000},
+		{name = "combat", type = COMBAT_ENERGYDAMAGE, interval = 1000, chance = 11, length = 8, spread = 0, minDamage = -30000000, maxDamage = -45000000, effect = CONST_ME_PURPLEENERGY},
+		{name = "combat", type = COMBAT_FIREDAMAGE, interval = 1000, chance = 11, radius = 5, target = 1, minDamage = -25000000, maxDamage = -30000000, effect = CONST_ME_FIREAREA},
+		{name = "combat", type = COMBAT_LIFEDRAIN, interval = 2000, chance = 5, radius = 7, target = 0, minDamage = 1000000, maxDamage = -1500000, effect = CONST_ME_POFF},
+}
+
+monster.defenses = {
+	defense = 65,
+	armor = 70,
+		{name = "combat", type = COMBAT_HEALING, interval = 100, chance = 100, minDamage = 2000000, maxDamage = 6000000},
+}
+
+monster.elements = {
+		{type = COMBAT_ICEDAMAGE, percent = 65},
+		{type = COMBAT_ENERGYDAMAGE, percent = 65},
+		{type = COMBAT_EARTHDAMAGE, percent = 65},
+		{type = COMBAT_HOLYDAMAGE, percent = 65},
+		{type = COMBAT_DEATHDAMAGE, percent = 65},
+		{type = COMBAT_FIREDAMAGE, percent = 65},
+		{type = COMBAT_PHYSICALDAMAGE, percent = 65},
+}
+
+monster.immunities = {
+		--{type = "lifedrain", condition = true},
+		{type = "paralyze", condition = true},
+		{type = "invisible", condition = true},
+}
+
+monster.voices = {
+	interval = 5000,
+	chance = 0,
+		{text = "I'll sacrifice yours souls to seven!"},
+		{text = "I'm bad news for you mortals!"},
+		{text = "No man can defeat me!"},
+		{text = "Your puny skills are no match for me."},
+		{text = "I smell your fear."},
+		{text = "Delicious!"},
+}
+
+monster.loot = {
+	{id = 2148, chance = 80000, maxCount = 100},
+	{id = 2148, chance = 70000, maxCount = 100},
+	{id = 2160, chance = 100000, maxCount = 3},
+	{id = 2143, chance = 3000, maxCount = 7},
+	{id = 2514, chance = 1650},
+	{id = 7590, chance = 7000},
+	{id = 7591, chance = 7000},
+	{
+		id = 1987, chance = 100000,
+		childs = {
+			{id = 2148, chance = 60000, maxCount = 83},
+			{id = 7368, chance = 100000, maxCount = 25},
+		}
+	},
+}
+
+mType:register(monster)
