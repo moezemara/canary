@@ -133,6 +133,7 @@ function serverInitialization.onStartup()
 	updateEventRates()
 	HirelingsInit()
 	resetAccountSessions()
+	SmartChest.initDatabase()
 end
 
 serverInitialization:register()

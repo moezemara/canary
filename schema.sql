@@ -851,6 +851,20 @@ CREATE TABLE IF NOT EXISTS `kv_store` (
   PRIMARY KEY (`key_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- Smart Chest System
+CREATE TABLE IF NOT EXISTS `player_chest_state` (
+  `id`               INT          NOT NULL AUTO_INCREMENT,
+  `player_id`        INT          NOT NULL,
+  `tier`             TINYINT      NOT NULL,
+  `fortune_count`    SMALLINT     NOT NULL DEFAULT 0,
+  `exchange_shards`  SMALLINT     NOT NULL DEFAULT 0,
+  `total_opens`      INT          NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `player_tier` (`player_id`, `tier`),
+  CONSTRAINT `fk_pcs_player`
+    FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- Create Account god/god
 INSERT INTO `accounts`
 (`id`, `name`, `email`, `password`, `type`) VALUES

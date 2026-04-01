@@ -57687,8 +57687,73 @@ hands of its owner. Granted by TibiaRoyal.com"/>
 	<item fromid="31075" toid="31076" article="a" name="small vase"/>
 	<item fromid="31077" toid="31078" article="a" name="small jar"/>
 	<item fromid="31079" toid="31080" article="a" name="small vase"/>
-	<item fromid="31081" toid="31092" name="unknown item"/>
-	<item fromid="31093" toid="31096" name="unknown item"/>
+	<!-- Smart Chest System — Chests (31081–31086), Keys (31087–31092), Shard (31093) -->
+	<item id="31081" article="a" name="wooden chest">
+		<attribute key="primarytype" value="containers"/>
+		<attribute key="weight" value="3500"/>
+		<attribute key="description" value="A plain wooden chest. Contains unknown loot."/>
+	</item>
+	<item id="31082" article="a" name="silver chest">
+		<attribute key="primarytype" value="containers"/>
+		<attribute key="weight" value="3500"/>
+		<attribute key="description" value="A chest adorned with silver bands."/>
+	</item>
+	<item id="31083" article="a" name="golden chest">
+		<attribute key="primarytype" value="containers"/>
+		<attribute key="weight" value="3500"/>
+		<attribute key="description" value="A chest trimmed in gold."/>
+	</item>
+	<item id="31084" article="an" name="obsidian chest">
+		<attribute key="primarytype" value="containers"/>
+		<attribute key="weight" value="3500"/>
+		<attribute key="description" value="A chest of black stone cracked with violet lines."/>
+	</item>
+	<item id="31085" article="a" name="crimson chest">
+		<attribute key="primarytype" value="containers"/>
+		<attribute key="weight" value="3500"/>
+		<attribute key="description" value="A smoldering chest of cracked red-orange stone."/>
+	</item>
+	<item id="31086" article="a" name="celestial chest">
+		<attribute key="primarytype" value="containers"/>
+		<attribute key="weight" value="3500"/>
+		<attribute key="description" value="A radiant chest that hums with starlight."/>
+	</item>
+	<item id="31087" article="an" name="iron key">
+		<attribute key="primarytype" value="keys"/>
+		<attribute key="weight" value="100"/>
+		<attribute key="description" value="Opens a Wooden Chest."/>
+	</item>
+	<item id="31088" article="a" name="silver key">
+		<attribute key="primarytype" value="keys"/>
+		<attribute key="weight" value="100"/>
+		<attribute key="description" value="Opens a Silver Chest."/>
+	</item>
+	<item id="31089" article="a" name="golden key">
+		<attribute key="primarytype" value="keys"/>
+		<attribute key="weight" value="100"/>
+		<attribute key="description" value="Opens a Golden Chest."/>
+	</item>
+	<item id="31090" article="a" name="shadow key">
+		<attribute key="primarytype" value="keys"/>
+		<attribute key="weight" value="100"/>
+		<attribute key="description" value="Opens an Obsidian Chest."/>
+	</item>
+	<item id="31091" article="an" name="infernal key">
+		<attribute key="primarytype" value="keys"/>
+		<attribute key="weight" value="100"/>
+		<attribute key="description" value="Opens a Crimson Chest. Cannot be crafted."/>
+	</item>
+	<item id="31092" article="an" name="astral key">
+		<attribute key="primarytype" value="keys"/>
+		<attribute key="weight" value="100"/>
+		<attribute key="description" value="Opens a Celestial Chest. Extremely rare. Cannot be crafted."/>
+	</item>
+	<item id="31093" article="an" name="arcane shard">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="weight" value="5"/>
+		<attribute key="description" value="A crystallised fragment of magical energy. Used to refine and craft within the chest system."/>
+	</item>
+	<item fromid="31094" toid="31096" name="unknown item"/>
 	<item fromid="31097" toid="31099" name="unknown item"/>
 	<item fromid="31100" toid="31103" article="a" name="ancient stone coffin"/>
 	<item fromid="31104" toid="31113" article="an" name="ancient sacrophagus"/>
@@ -84564,107 +84629,73 @@ Granted by TibiaGoals.com"/>
 			<attribute key="slot" value="body"/>
 		</attribute>
 	</item>
-	<item id="51299" name="genesis serenity legs">
-		<attribute key="primarytype" value="legs"/>
-		<attribute key="mantra" value="11"/>
-		<attribute key="armor" value="7"/>
-		<attribute key="skillfist" value="5"/>
-		<attribute key="magiclevelpoints" value="3"/>
-		<attribute key="absorbpercentphysical" value="5"/>
-		<attribute key="absorbpercentdeath" value="5"/>
-		<attribute key="weight" value="4100"/>
-		<attribute key="augments" value="1">
-			<attribute key="avatar of balance" value="cooldown">
-				<attribute key="value" value="900000"/>
-			</attribute>
-			<attribute key="chained penance" value="critical extra damage">
-				<attribute key="value" value="8"/>
-			</attribute>
-		</attribute>
-		<attribute key="script" value="moveevent">
-			<attribute key="level" value="800"/>
-			<attribute key="unproperly" value="true"/>
-			<attribute key="vocation" value="Monk;true, Exalted Monk"/>
-			<attribute key="slot" value="legs"/>
-		</attribute>
+	<!-- Smart Chest System — Chests (Tiers 1-6) -->
+	<item id="51296" article="a" name="wooden chest">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A sturdy wooden chest waiting to be opened."/>
+		<attribute key="weight" value="500"/>
 	</item>
-	<item id="51302" article="a" name="transcendence potion">
-		<attribute key="primarytype" value="liquids"/>
-		<attribute key="description" value="Drinking this potion temporarily increases your fist skill"/>
-		<attribute key="weight" value="290"/>
+	<item id="51297" article="a" name="silver chest">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A gleaming silver chest waiting to be opened."/>
+		<attribute key="weight" value="500"/>
 	</item>
-	<item id="51303" article="a" name="transcendent box">
-			<attribute key="weight" value="10"/>
+	<item id="51298" article="a" name="golden chest">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A radiant golden chest waiting to be opened."/>
+		<attribute key="weight" value="500"/>
 	</item>
-	<item id="51304" article="a" name="transcendent headband">
-			<attribute key="absorbpercentphysical" value="5"/>
-			<attribute key="armor" value="9"/>
-			<attribute key="weight" value="4500"/>
-			<attribute key="imbuementslot" value="2">
-				<attribute key="mana leech" value="3"/>
-				<attribute key="skillboost axe" value="3"/>
-				<attribute key="skillboost sword" value="3"/>
-				<attribute key="skillboost club" value="3"/>
-				<attribute key="skillboost shielding" value="3"/>
-			</attribute>
+	<item id="51299" article="an" name="obsidian chest">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A dark obsidian chest waiting to be opened."/>
+		<attribute key="weight" value="500"/>
 	</item>
-	<item id="51305" article="a" name="transcendent robe">
-			<attribute key="absorbpercentphysical" value="6"/>
-			<attribute key="skillshield" value="1"/>
-			<attribute key="skillclub" value="2"/>
-			<attribute key="skillaxe" value="2"/>
-			<attribute key="skillsword" value="2"/>
-			<attribute key="armor" value="16"/>
-			<attribute key="weight" value="12000"/>
-			<attribute key="imbuementslot" value="2">
-				<attribute key="life leech" value="3"/>
-				<attribute key="elemental protection death" value="3"/>
-				<attribute key="elemental protection earth" value="3"/>
-				<attribute key="elemental protection fire" value="3"/>
-				<attribute key="elemental protection ice" value="3"/>
-				<attribute key="elemental protection energy" value="3"/>
-				<attribute key="elemental protection holy" value="3"/>
-			</attribute>
+	<item id="51300" article="a" name="crimson chest">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A fiery crimson chest waiting to be opened."/>
+		<attribute key="weight" value="500"/>
 	</item>
-	<item id="51306" article="a" name="transcendent trousers">
-			<attribute key="absorbpercentphysical" value="5"/>
-			<attribute key="skillclub" value="2"/>
-			<attribute key="skillaxe" value="2"/>
-			<attribute key="skillsword" value="2"/>
-			<attribute key="armor" value="8"/>
-			<attribute key="weight" value="5800"/>
+	<item id="51301" article="a" name="celestial chest">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A celestial chest radiating cosmic energy."/>
+		<attribute key="weight" value="500"/>
 	</item>
-	<item id="51307" article="a" name="transcendent footwraps">
-			<attribute key="showAttributes" value="1"/>
-			<attribute key="absorbpercentphysical" value="3"/>
-			<attribute key="speed" value="10"/>
-			<attribute key="armor" value="3"/>
-			<attribute key="weight" value="1400"/>
-			<attribute key="imbuementslot" value="1">
-				<attribute key="increase speed" value="3"/>
-			</attribute>
+	<!-- Smart Chest System — Keys (Tiers 1-6) -->
+	<item id="51302" article="an" name="astral key">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A key forged from astral energy. Opens Celestial Chests."/>
+		<attribute key="weight" value="100"/>
 	</item>
-	<item id="51308" article="a" name="transcendent bo">
-		<attribute key="primarytype" value="fist weapons"/>
-		<attribute key="weapontype" value="fist"/>
-		<attribute key="attack" value="45"/>
-		<attribute key="defense" value="18"/>
-		<attribute key="skillfist" value="2"/> 
-		<attribute key="magiclevelpoints" value="1"/>
-		<attribute key="elementalbond" value="energy"/>
-		<attribute key="slottype" value="dualwielding"/>
-		<attribute key="weight" value="6400"/> 
-		<attribute key="imbuementslot" value="2">
-			<attribute key="elemental damage" value="3"/>
-			<attribute key="life leech" value="3"/>
-			<attribute key="mana leech" value="3"/>
-			<attribute key="critical hit" value="3"/>
-			<attribute key="skillboost fist" value="3"/>
-		</attribute>
-		<attribute key="augments" value="1">
-			<attribute key="sweeping takedown" value="base">
-				<attribute key="value" value="4"/>
-			</attribute>
-		</attribute>
+	<item id="51303" article="a" name="golden key">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A key crafted from pure gold. Opens Golden Chests."/>
+		<attribute key="weight" value="100"/>
 	</item>
+	<item id="51304" article="an" name="infernal key">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A key forged in infernal flames. Opens Crimson Chests."/>
+		<attribute key="weight" value="100"/>
+	</item>
+	<item id="51305" article="a" name="shadow key">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A key shrouded in shadow. Opens Obsidian Chests."/>
+		<attribute key="weight" value="100"/>
+	</item>
+	<item id="51306" article="a" name="silver key">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A finely crafted silver key. Opens Silver Chests."/>
+		<attribute key="weight" value="100"/>
+	</item>
+	<item id="51307" article="an" name="iron key">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A plain iron key. Opens Wooden Chests."/>
+		<attribute key="weight" value="100"/>
+	</item>
+	<!-- Smart Chest System — Arcane Shard (currency) -->
+	<item id="51308" article="an" name="arcane shard">
+		<attribute key="primarytype" value="valuables"/>
+		<attribute key="description" value="A crystallized shard of arcane energy, used to refine and craft chest rewards."/>
+		<attribute key="weight" value="10"/>
+	</item>
+
 </items>

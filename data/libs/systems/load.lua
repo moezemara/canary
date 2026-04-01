@@ -13,3 +13,7 @@ dofile(CORE_DIRECTORY .. "/libs/systems/reward_boss.lua")
 dofile(CORE_DIRECTORY .. "/libs/systems/vip.lua")
 dofile(CORE_DIRECTORY .. "/libs/systems/zones.lua")
 dofile(CORE_DIRECTORY .. "/libs/systems/battlepass.lua")
+-- Smart Chest System (Phase 1-3, 5) — constants, helpers, DB layer
+dofile(CORE_DIRECTORY .. "/libs/systems/smart_chest.lua")
+-- Loot pools (loaded after smart_chest.lua so SmartChest table exists)
+dofile(CORE_DIRECTORY .. "/scripts/systems/smart_chest/lootTables.lua")

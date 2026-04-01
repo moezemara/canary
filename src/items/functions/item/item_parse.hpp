@@ -33,6 +33,7 @@ const phmap::flat_hash_map<std::string, ItemParseAttributes_t> ItemParseAttribut
 	{ "unwrapableto", ITEM_PARSE_WRAPABLETO },
 	{ "movable", ITEM_PARSE_MOVABLE },
 	{ "movable", ITEM_PARSE_MOVABLE },
+	{ "multiuse", ITEM_PARSE_MULTIUSE },
 	{ "blockprojectile", ITEM_PARSE_BLOCKPROJECTILE },
 	{ "allowpickupable", ITEM_PARSE_PICKUPABLE },
 	{ "pickupable", ITEM_PARSE_PICKUPABLE },
@@ -280,6 +281,7 @@ private:
 	static void parseWrapContainer(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseWrapableTo(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseMovable(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
+	static void parseMultiUse(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseBlockProjectTile(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parsePickupable(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseFloorChange(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
