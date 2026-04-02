@@ -121,7 +121,7 @@ function playerLoginGlobal.onLogin(player)
 
 	-- Set Ghost Mode
 	if player:getGroup():getId() >= GROUP_TYPE_GAMEMASTER then
-		player:setGhostMode(true)
+		-- player:setGhostMode(true)
 	end
 
 	-- Resets

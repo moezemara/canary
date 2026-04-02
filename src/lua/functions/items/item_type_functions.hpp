@@ -71,6 +71,7 @@ private:
 	static int luaItemTypeGetAmmoType(lua_State* L);
 
 	static int luaItemTypeGetSpeed(lua_State* L);
+	static int luaItemTypeGetAttackSpeed(lua_State* L);
 	static int luaItemTypeGetBaseSpeed(lua_State* L);
 	static int luaItemTypeGetDecayTime(lua_State* L);
 	static int luaItemTypeGetShowDuration(lua_State* L);

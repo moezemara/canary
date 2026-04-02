@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("War Golem")
 local monster = {}
 
 monster.description = "a war golem"
-monster.experience = 255000
+monster.experience = 255000000000000
 monster.outfit = {
 	lookType = 326,
 	lookHead = 0,
@@ -14,7 +14,7 @@ monster.outfit = {
 }
 
 monster.raceId = 0
-monster.health = 230000
+monster.health = 1
 monster.maxHealth = 230000
 monster.race = "undead"
 monster.corpse = 10005
@@ -45,29 +45,29 @@ monster.flags = {
 	runHealth = 0,
 }
 
-monster.attacks = {
-		{name = "melee", interval = 2000, skill = 70, attack = 80},
-		{name = "combat", type = COMBAT_ENERGYDAMAGE, interval = 1000, chance = 7, range = 7, minDamage = -1000, maxDamage = -2200, shootEffect = CONST_ANI_ENERGY},
-		{name = "combat", type = COMBAT_ENERGYDAMAGE, interval = 2000, chance = 25, length = 8, spread = 0, minDamage = -1000, maxDamage = -2800, effect = CONST_ME_ENERGY},
-		{name = "outfit", interval = 1000, chance = 9, range = 7, duration = 5000},
-}
+-- monster.attacks = {
+-- 		{name = "melee", interval = 2000, skill = 70, attack = 80},
+-- 		{name = "combat", type = COMBAT_ENERGYDAMAGE, interval = 1000, chance = 7, range = 7, minDamage = -1000, maxDamage = -2200, shootEffect = CONST_ANI_ENERGY},
+-- 		{name = "combat", type = COMBAT_ENERGYDAMAGE, interval = 2000, chance = 25, length = 8, spread = 0, minDamage = -1000, maxDamage = -2800, effect = CONST_ME_ENERGY},
+-- 		{name = "outfit", interval = 1000, chance = 9, range = 7, duration = 5000},
+-- }
 
-monster.defenses = {
-	defense = 45,
-	armor = 40,
-		{name = "speed", interval = 1000, chance = 9, speedchange = 290, duration = 4000},
-		{name = "combat", type = COMBAT_HEALING, interval = 1000, chance = 20, minDamage = 150, maxDamage = 230},
-}
+-- monster.defenses = {
+-- 	defense = 45,
+-- 	armor = 40,
+-- 		{name = "speed", interval = 1000, chance = 9, speedchange = 290, duration = 4000},
+-- 		{name = "combat", type = COMBAT_HEALING, interval = 1000, chance = 20, minDamage = 150, maxDamage = 230},
+-- }
 
-monster.elements = {
-		{type = COMBAT_EARTHDAMAGE, percent = 50},
-		{type = COMBAT_HOLYDAMAGE, percent = 30},
-		{type = COMBAT_FIREDAMAGE, percent = 45},
-		{type = COMBAT_ENERGYDAMAGE, percent = 25},
-		{type = COMBAT_PHYSICALDAMAGE, percent = 40},
-		{type = COMBAT_ICEDAMAGE, percent = 25},
-		{type = COMBAT_DEATHDAMAGE, percent = 30},
-}
+-- monster.elements = {
+-- 		{type = COMBAT_EARTHDAMAGE, percent = 50},
+-- 		{type = COMBAT_HOLYDAMAGE, percent = 30},
+-- 		{type = COMBAT_FIREDAMAGE, percent = 45},
+-- 		{type = COMBAT_ENERGYDAMAGE, percent = 25},
+-- 		{type = COMBAT_PHYSICALDAMAGE, percent = 40},
+-- 		{type = COMBAT_ICEDAMAGE, percent = 25},
+-- 		{type = COMBAT_DEATHDAMAGE, percent = 30},
+-- }
 
 monster.immunities = {
 		{type = "invisible", condition = true},

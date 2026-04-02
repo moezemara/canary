@@ -128,6 +128,7 @@ void PlayerFunctions::init(lua_State* L) {
 	Lua::registerMethod(L, "Player", "getBaseMaxHealth", PlayerFunctions::luaPlayerGetBaseMaxHealth);
 	Lua::registerMethod(L, "Player", "getBaseMaxMana", PlayerFunctions::luaPlayerGetBaseMaxMana);
 
+	Lua::registerMethod(L, "Player", "getAttackSpeed", PlayerFunctions::luaPlayerGetAttackSpeed);
 	Lua::registerMethod(L, "Player", "getSkillLevel", PlayerFunctions::luaPlayerGetSkillLevel);
 	Lua::registerMethod(L, "Player", "getEffectiveSkillLevel", PlayerFunctions::luaPlayerGetEffectiveSkillLevel);
 	Lua::registerMethod(L, "Player", "getSkillPercent", PlayerFunctions::luaPlayerGetSkillPercent);
@@ -1516,6 +1517,17 @@ int PlayerFunctions::luaPlayerGetBaseMaxMana(lua_State* L) {
 	const auto &player = Lua::getUserdataShared<Player>(L, 1, "Player");
 	if (player) {
 		lua_pushnumber(L, player->manaMax);
+	} else {
+		lua_pushnil(L);
+	}
+	return 1;
+}
+
+int PlayerFunctions::luaPlayerGetAttackSpeed(lua_State* L) {
+	// player:getAttackSpeed()
+	const auto &player = Lua::getUserdataShared<Player>(L, 1, "Player");
+	if (player) {
+		lua_pushnumber(L, player->getAttackSpeed());
 	} else {
 		lua_pushnil(L);
 	}

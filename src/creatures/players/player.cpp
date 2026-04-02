@@ -292,6 +292,10 @@ void Player::setVarSkill(skills_t skill, int32_t modifier) {
 	varSkills[skill] += modifier;
 }
 
+void Player::setVarAttackSpeed(int32_t delta) {
+	varAttackSpeed += delta;
+}
+
 bool Player::isSuppress(ConditionType_t conditionType, bool attackerPlayer) const {
 	auto minDelay = g_configManager().getNumber(MIN_DELAY_BETWEEN_CONDITIONS);
 	if (IsConditionSuppressible(conditionType) && checkLastConditionTimeWithin(conditionType, minDelay)) {
@@ -4216,7 +4220,11 @@ void Player::removePlayer(bool displayEffect, bool forced /*= true*/) {
 }
 
 uint64_t Player::getExpForLevel(const uint32_t level) {
-	return (((level - 6ULL) * level + 17ULL) * level - 12ULL) / 6ULL * 100ULL;
+	if (level <= 1) {
+		return 0;
+	}
+	const uint64_t lv = level - 1ULL;
+	return (100ULL * lv * lv) / 3ULL;
 }
 
 uint16_t Player::getStaminaMinutes() const {
@@ -5145,7 +5153,9 @@ uint32_t Player::getFreeCapacity() const {
 	} else if (hasFlag(PlayerFlags_t::HasInfiniteCapacity)) {
 		return std::numeric_limits<uint32_t>::max();
 	} else {
-		return std::max<int32_t>(0, getCapacity() - inventoryWeight);
+		const uint32_t cap = getCapacity();
+		const uint32_t free = inventoryWeight >= cap ? 0u : cap - inventoryWeight;
+		return std::min(free, static_cast<uint32_t>(1000000)); // soft cap at 10000 oz
 	}
 }
 
@@ -6750,9 +6760,10 @@ Skulls_t Player::getSkullClient(const std::shared_ptr<Creature> &creature) {
 			return SKULL_YELLOW;
 		}
 
-		if (m_party && m_party == player->m_party) {
-			return SKULL_GREEN;
-		}
+		// Evolera: green skull disabled
+		// if (m_party && m_party == player->m_party) {
+		// 	return SKULL_GREEN;
+		// }
 	}
 	return Creature::getSkullClient(creature);
 }
@@ -6867,17 +6878,18 @@ void Player::addUnjustifiedDead(const std::shared_ptr<Player> &attacked) {
 		}
 	}
 
-	if (getSkull() != SKULL_BLACK) {
-		if (dayKills >= 2 * g_configManager().getNumber(DAY_KILLS_TO_RED) || weekKills >= 2 * g_configManager().getNumber(WEEK_KILLS_TO_RED) || monthKills >= 2 * g_configManager().getNumber(MONTH_KILLS_TO_RED)) {
-			setSkull(SKULL_BLACK);
-			// start black skull time
-			skullTicks = static_cast<int64_t>(g_configManager().getNumber(BLACK_SKULL_DURATION)) * 24 * 60 * 60;
-		} else if (dayKills >= g_configManager().getNumber(DAY_KILLS_TO_RED) || weekKills >= g_configManager().getNumber(WEEK_KILLS_TO_RED) || monthKills >= g_configManager().getNumber(MONTH_KILLS_TO_RED)) {
-			setSkull(SKULL_RED);
-			// reset red skull time
-			skullTicks = static_cast<int64_t>(g_configManager().getNumber(RED_SKULL_DURATION)) * 24 * 60 * 60;
-		}
-	}
+	// Evolera: red/black skulls disabled
+	// if (getSkull() != SKULL_BLACK) {
+	// 	if (dayKills >= 2 * g_configManager().getNumber(DAY_KILLS_TO_RED) || weekKills >= 2 * g_configManager().getNumber(WEEK_KILLS_TO_RED) || monthKills >= 2 * g_configManager().getNumber(MONTH_KILLS_TO_RED)) {
+	// 		setSkull(SKULL_BLACK);
+	// 		// start black skull time
+	// 		skullTicks = static_cast<int64_t>(g_configManager().getNumber(BLACK_SKULL_DURATION)) * 24 * 60 * 60;
+	// 	} else if (dayKills >= g_configManager().getNumber(DAY_KILLS_TO_RED) || weekKills >= g_configManager().getNumber(WEEK_KILLS_TO_RED) || monthKills >= g_configManager().getNumber(MONTH_KILLS_TO_RED)) {
+	// 		setSkull(SKULL_RED);
+	// 		// reset red skull time
+	// 		skullTicks = static_cast<int64_t>(g_configManager().getNumber(RED_SKULL_DURATION)) * 24 * 60 * 60;
+	// 	}
+	// }
 
 	sendUnjustifiedPoints();
 }
@@ -6923,7 +6935,9 @@ bool Player::isPromoted() const {
 }
 
 uint32_t Player::getAttackSpeed() const {
-	return vocation->getAttackSpeed();
+	const int32_t base = static_cast<int32_t>(vocation->getAttackSpeed());
+	const int32_t minSpeed = g_configManager().getNumber(MIN_ATTACK_SPEED);
+	return static_cast<uint32_t>(std::max(minSpeed, base - varAttackSpeed));
 }
 
 double Player::getLostPercent() const {

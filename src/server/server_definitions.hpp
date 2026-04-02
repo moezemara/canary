@@ -125,7 +125,7 @@ enum Stash_Actions_t : uint8_t {
 };
 
 struct HighscoreCharacter {
-	HighscoreCharacter(std::string name, uint64_t points, uint32_t id, uint32_t rank, uint16_t level, uint8_t vocation, std::string loyaltyTitle) :
+	HighscoreCharacter(std::string name, uint64_t points, uint32_t id, uint32_t rank, uint32_t level, uint8_t vocation, std::string loyaltyTitle) :
 		name(std::move(name)),
 		points(points),
 		id(id),
@@ -138,7 +138,7 @@ struct HighscoreCharacter {
 	uint64_t points;
 	uint32_t id;
 	uint32_t rank;
-	uint16_t level;
+	uint32_t level;
 	uint8_t vocation;
 	std::string loyaltyTitle;
 };

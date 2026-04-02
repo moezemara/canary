@@ -290,6 +290,7 @@ bool ConfigManager::load() {
 	loadIntConfig(L, MAX_PLAYERS_PER_ACCOUNT, "maxPlayersOnlinePerAccount", 1);
 	loadIntConfig(L, MAX_PLAYERS, "maxPlayers", 0);
 	loadIntConfig(L, METRICS_OSTREAM_INTERVAL, "metricsOstreamInterval", 1000);
+	loadIntConfig(L, MIN_ATTACK_SPEED, "minAttackSpeed", 50);
 	loadIntConfig(L, MIN_DELAY_BETWEEN_CONDITIONS, "minDelayBetweenConditions", 0);
 	loadIntConfig(L, MIN_ELEMENTAL_RESISTANCE, "minElementalResistance", -200);
 	loadIntConfig(L, MIN_TOWN_ID_TO_BANK_TRANSFER_FROM_MAIN, "minTownIdToBankTransferFromMain", 4);

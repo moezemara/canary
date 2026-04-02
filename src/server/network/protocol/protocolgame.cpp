@@ -2393,7 +2393,7 @@ void ProtocolGame::sendHighscores(const std::vector<HighscoreCharacter> &charact
 		msg.addString(character.loyaltyTitle); // Character Loyalty Title
 		msg.addByte(character.vocation); // Vocation Id
 		msg.addString(serverName); // World
-		msg.add<uint16_t>(character.level); // Level
+		msg.add<uint32_t>(character.level); // Level
 		msg.addByte((player->getGUID() == character.id)); // Player Indicator Boolean
 		msg.add<uint64_t>(character.points); // Points
 	}
@@ -2768,7 +2768,7 @@ void ProtocolGame::sendLeaderTeamFinder(bool reset) {
 
 	msg.add<uint32_t>(leader->getGUID());
 	msg.addString(leader->getName());
-	msg.add<uint16_t>(leader->getLevel());
+	msg.add<uint32_t>(leader->getLevel());
 	msg.addByte(leader->getVocation()->getClientId());
 	msg.addByte(3);
 
@@ -2791,7 +2791,7 @@ void ProtocolGame::sendLeaderTeamFinder(bool reset) {
 		}
 		msg.add<uint32_t>(member->getGUID());
 		msg.addString(member->getName());
-		msg.add<uint16_t>(member->getLevel());
+		msg.add<uint32_t>(member->getLevel());
 		msg.addByte(member->getVocation()->getClientId());
 		msg.addByte(memberStatus);
 	}
@@ -3638,7 +3638,7 @@ void ProtocolGame::sendCyclopediaCharacterBaseInformation() {
 	msg.addByte(0x00);
 	msg.addString(player->getName());
 	msg.addString(player->getVocation()->getVocName());
-	msg.add<uint16_t>(player->getLevel());
+	msg.add<uint32_t>(player->getLevel());
 	AddOutfit(msg, player->getDefaultOutfit(), false);
 
 	msg.addByte(0x01); // Store summary & Character titles
@@ -3661,7 +3661,7 @@ void ProtocolGame::sendCyclopediaCharacterGeneralStats() {
 	msg.addByte(0x00); // 0x00 Here means 'no error'
 
 	msg.add<uint64_t>(player->getExperience());
-	msg.add<uint16_t>(player->getLevel());
+	msg.add<uint32_t>(player->getLevel());
 	msg.addByte(player->getLevelPercent());
 	msg.add<uint16_t>(player->getBaseXpGain()); // BaseXPGainRate
 	msg.add<uint16_t>(player->getDisplayGrindingXpBoost()); // LowLevelBonus
@@ -3669,10 +3669,16 @@ void ProtocolGame::sendCyclopediaCharacterGeneralStats() {
 	msg.add<uint16_t>(player->getStaminaXpBoost()); // StaminaMultiplier(100=x1.0)
 	msg.add<uint16_t>(player->getXpBoostTime()); // xpBoostRemainingTime
 	msg.addByte(player->getXpBoostTime() > 0 ? 0x00 : 0x01); // canBuyXpBoost
-	msg.add<uint32_t>(std::min<int32_t>(player->getHealth(), std::numeric_limits<uint16_t>::max()));
-	msg.add<uint32_t>(std::min<int32_t>(player->getMaxHealth(), std::numeric_limits<uint16_t>::max()));
-	msg.add<uint32_t>(std::min<int32_t>(player->getMana(), std::numeric_limits<uint16_t>::max()));
-	msg.add<uint32_t>(std::min<int32_t>(player->getMaxMana(), std::numeric_limits<uint16_t>::max()));
+	const uint32_t cycloHealthPercent = player->getMaxHealth() > 0
+		? static_cast<uint32_t>((static_cast<double>(player->getHealth()) / player->getMaxHealth()) * 100)
+		: 0;
+	const uint32_t cycloManaPercent = player->getMaxMana() > 0
+		? static_cast<uint32_t>((static_cast<double>(player->getMana()) / player->getMaxMana()) * 100)
+		: 0;
+	msg.add<uint32_t>(cycloHealthPercent);
+	msg.add<uint32_t>(100);
+	msg.add<uint32_t>(cycloManaPercent);
+	msg.add<uint32_t>(100);
 	msg.addByte(player->getSoul());
 	msg.add<uint16_t>(player->getStaminaMinutes());
 
@@ -4660,7 +4666,7 @@ void ProtocolGame::sendBlessingWindow() {
 
 	const auto playerSkull = player->getSkull();
 	const auto &playerAmulet = player->getThing(CONST_SLOT_NECKLACE);
-	bool hasSkull = (playerSkull == Skulls_t::SKULL_RED || playerSkull == Skulls_t::SKULL_BLACK);
+	bool hasSkull = false; // Evolera: red/black skull death penalty disabled (was: playerSkull == SKULL_RED || playerSkull == SKULL_BLACK)
 	bool usingAol = (playerAmulet && playerAmulet->getItem()->getID() == ITEM_AMULETOFLOSS);
 	if (hasSkull) {
 		msg.addByte(100);
@@ -6594,9 +6600,9 @@ void ProtocolGame::sendCreatureSay(const std::shared_ptr<Creature> &creature, Sp
 
 	// Add level only for players
 	if (std::shared_ptr<Player> speaker = creature->getPlayer()) {
-		msg.add<uint16_t>(speaker->getLevel());
+		msg.add<uint32_t>(speaker->getLevel());
 	} else {
-		msg.add<uint16_t>(0x00);
+		msg.add<uint32_t>(0x00);
 	}
 
 	if (oldProtocol && type >= TALKTYPE_MONSTER_LAST_OLDPROTOCOL && type != TALKTYPE_CHANNEL_R2) {
@@ -6640,9 +6646,9 @@ void ProtocolGame::sendToChannel(const std::shared_ptr<Creature> &creature, Spea
 
 		// Add level only for players
 		if (std::shared_ptr<Player> speaker = creature->getPlayer()) {
-			msg.add<uint16_t>(speaker->getLevel());
+			msg.add<uint32_t>(speaker->getLevel());
 		} else {
-			msg.add<uint16_t>(0x00);
+			msg.add<uint32_t>(0x00);
 		}
 	}
 
@@ -6667,7 +6673,7 @@ void ProtocolGame::sendPrivateMessage(const std::shared_ptr<Player> &speaker, Sp
 		if (!oldProtocol && statementId != 0) {
 			msg.addByte(0x00); // Show (Traded)
 		}
-		msg.add<uint16_t>(speaker->getLevel());
+		msg.add<uint32_t>(speaker->getLevel());
 	} else {
 		msg.add<uint32_t>(0x00);
 		if (!oldProtocol && statementId != 0) {
@@ -8100,6 +8106,18 @@ void ProtocolGame::sendModalWindow(const ModalWindow &modalWindow) {
 }
 
 ////////////// Add common messages
+
+// Returns the outfit shader name for a top-10 ranked player, or empty string if not ranked.
+// Shader files are registered in otclient/modules/game_shaders/shaders.lua.
+static std::string getHighscoreShaderName(uint8_t rank) {
+	if (rank == 1) return "Outfit - Rank1"; // gold outline
+	if (rank == 2) return "Outfit - Rank2"; // silver outline
+	if (rank == 3) return "Outfit - Rank3"; // bronze outline
+	if (rank <= 6) return "Outfit - Rank4"; // purple outline
+	if (rank <= 10) return "Outfit - Rank5"; // blue outline
+	return "";
+}
+
 void ProtocolGame::AddCreature(NetworkMessage &msg, const std::shared_ptr<Creature> &creature, bool known, uint32_t remove) {
 	CreatureType_t creatureType = creature->getType();
 	std::shared_ptr<Player> otherPlayer = creature->getPlayer();
@@ -8209,10 +8227,15 @@ void ProtocolGame::AddCreature(NetworkMessage &msg, const std::shared_ptr<Creatu
 	msg.addByte(player->canWalkthroughEx(creature) ? 0x00 : 0x01);
 
 	if (isOTCR) {
-		msg.addString(creature->getShader()); // g_game.enableFeature(GameCreatureShader)
-		msg.addByte(static_cast<uint8_t>(creature->getAttachedEffectList().size())); // g_game.enableFeature(GameCreatureAttachedEffect)
+		// Use the creature's own shader if set, otherwise fall back to the rank outline shader.
+		std::string shaderName = creature->getShader();
+		if (shaderName.empty() && otherPlayer) {
+			shaderName = getHighscoreShaderName(g_game().getPlayerHighscoreRank(otherPlayer->getGUID()));
+		}
+		msg.addString(shaderName);
+		msg.addByte(static_cast<uint8_t>(creature->getAttachedEffectList().size()));
 		for (const uint16_t id : creature->getAttachedEffectList()) {
-			msg.add<uint16_t>(id); // g_game.enableFeature(GameCreatureAttachedEffect)
+			msg.add<uint16_t>(id);
 		}
 	}
 }
@@ -8220,12 +8243,19 @@ void ProtocolGame::AddCreature(NetworkMessage &msg, const std::shared_ptr<Creatu
 void ProtocolGame::AddPlayerStats(NetworkMessage &msg) {
 	msg.addByte(0xA0);
 
+	const uint32_t healthPercent = player->getMaxHealth() > 0
+		? static_cast<uint32_t>((static_cast<double>(player->getHealth()) / player->getMaxHealth()) * 100)
+		: 0;
+	const uint32_t manaPercent = player->getMaxMana() > 0
+		? static_cast<uint32_t>((static_cast<double>(player->getMana()) / player->getMaxMana()) * 100)
+		: 0;
+
 	if (oldProtocol) {
-		msg.add<uint16_t>(std::min<int32_t>(player->getHealth(), std::numeric_limits<uint16_t>::max()));
-		msg.add<uint16_t>(std::min<int32_t>(player->getMaxHealth(), std::numeric_limits<uint16_t>::max()));
+		msg.add<uint16_t>(static_cast<uint16_t>(healthPercent));
+		msg.add<uint16_t>(100);
 	} else {
-		msg.add<uint32_t>(std::min<int32_t>(player->getHealth(), std::numeric_limits<int32_t>::max()));
-		msg.add<uint32_t>(std::min<int32_t>(player->getMaxHealth(), std::numeric_limits<int32_t>::max()));
+		msg.add<uint32_t>(healthPercent);
+		msg.add<uint32_t>(100);
 	}
 
 	msg.add<uint32_t>(player->hasFlag(PlayerFlags_t::HasInfiniteCapacity) ? 1000000 : player->getFreeCapacity());
@@ -8235,7 +8265,7 @@ void ProtocolGame::AddPlayerStats(NetworkMessage &msg) {
 
 	msg.add<uint64_t>(player->getExperience());
 
-	msg.add<uint16_t>(player->getLevel());
+	msg.add<uint32_t>(player->getLevel());
 	msg.addByte(std::min<uint8_t>(player->getLevelPercent(), 100));
 
 	msg.add<uint16_t>(player->getBaseXpGain()); // base xp gain rate
@@ -8249,11 +8279,11 @@ void ProtocolGame::AddPlayerStats(NetworkMessage &msg) {
 	msg.add<uint16_t>(player->getStaminaXpBoost()); // stamina multiplier (100 = 1.0x)
 
 	if (!oldProtocol) {
-		msg.add<uint32_t>(std::min<int32_t>(player->getMana(), std::numeric_limits<int32_t>::max()));
-		msg.add<uint32_t>(std::min<int32_t>(player->getMaxMana(), std::numeric_limits<int32_t>::max()));
+		msg.add<uint32_t>(manaPercent);
+		msg.add<uint32_t>(100);
 	} else {
-		msg.add<uint16_t>(std::min<int32_t>(player->getMana(), std::numeric_limits<uint16_t>::max()));
-		msg.add<uint16_t>(std::min<int32_t>(player->getMaxMana(), std::numeric_limits<uint16_t>::max()));
+		msg.add<uint16_t>(static_cast<uint16_t>(manaPercent));
+		msg.add<uint16_t>(100);
 
 		msg.addByte(static_cast<uint8_t>(std::min<uint32_t>(player->getMagicLevel(), std::numeric_limits<uint8_t>::max())));
 		msg.addByte(static_cast<uint8_t>(std::min<uint32_t>(player->getBaseMagicLevel(), std::numeric_limits<uint8_t>::max())));

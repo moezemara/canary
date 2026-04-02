@@ -574,6 +574,10 @@ uint32_t MoveEvent::EquipItem(const std::shared_ptr<MoveEvent> &moveEvent, const
 			g_game().changePlayerSpeed(player, item->getSpeed());
 		}
 
+		if (item->getAttackSpeed() != 0) {
+			player->setVarAttackSpeed(item->getAttackSpeed());
+		}
+
 		player->addConditionSuppressions(it.abilities->conditionSuppressions);
 		player->sendIcons();
 
@@ -694,6 +698,10 @@ uint32_t MoveEvent::DeEquipItem(const std::shared_ptr<MoveEvent> &, const std::s
 
 	if (item->getSpeed() != 0) {
 		g_game().changePlayerSpeed(player, -item->getSpeed());
+	}
+
+	if (item->getAttackSpeed() != 0) {
+		player->setVarAttackSpeed(-item->getAttackSpeed());
 	}
 
 	std::vector<ConditionType_t> toRemove;

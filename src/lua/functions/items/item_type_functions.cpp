@@ -74,6 +74,7 @@ void ItemTypeFunctions::init(lua_State* L) {
 	Lua::registerMethod(L, "ItemType", "getShowDuration", ItemTypeFunctions::luaItemTypeGetShowDuration);
 	Lua::registerMethod(L, "ItemType", "getWrapableTo", ItemTypeFunctions::luaItemTypeGetWrapableTo);
 	Lua::registerMethod(L, "ItemType", "getSpeed", ItemTypeFunctions::luaItemTypeGetSpeed);
+	Lua::registerMethod(L, "ItemType", "getAttackSpeed", ItemTypeFunctions::luaItemTypeGetAttackSpeed);
 	Lua::registerMethod(L, "ItemType", "getBaseSpeed", ItemTypeFunctions::luaItemTypeGetBaseSpeed);
 	Lua::registerMethod(L, "ItemType", "getVocationString", ItemTypeFunctions::luaItemTypeGetVocationString);
 	Lua::registerMethod(L, "ItemType", "getElementalBond", ItemTypeFunctions::luaItemTypeGetElementalBond);
@@ -638,6 +639,17 @@ int ItemTypeFunctions::luaItemTypeGetSpeed(lua_State* L) {
 	} else {
 		lua_pushnil(L);
 	}
+	return 1;
+}
+
+int ItemTypeFunctions::luaItemTypeGetAttackSpeed(lua_State* L) {
+	// itemType:getAttackSpeed()
+	const auto* itemType = Lua::getUserdata<const ItemType>(L, 1);
+	if (!itemType) {
+		lua_pushnil(L);
+		return 1;
+	}
+	lua_pushnumber(L, itemType->getAttackSpeed());
 	return 1;
 }
 

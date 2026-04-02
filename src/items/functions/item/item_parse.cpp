@@ -55,6 +55,7 @@ void ItemParse::initParse(const std::string &stringValue, pugi::xml_node attribu
 	ItemParse::parseHitChance(stringValue, valueAttribute, itemType);
 	ItemParse::parseInvisible(stringValue, valueAttribute, itemType);
 	ItemParse::parseSpeed(stringValue, valueAttribute, itemType);
+	ItemParse::parseAttackSpeed(stringValue, valueAttribute, itemType);
 	ItemParse::parseHealthAndMana(stringValue, valueAttribute, itemType);
 	ItemParse::parseSkills(stringValue, valueAttribute, itemType);
 	ItemParse::parseCriticalHit(stringValue, valueAttribute, itemType);
@@ -439,6 +440,12 @@ void ItemParse::parseInvisible(const std::string &stringValue, pugi::xml_attribu
 void ItemParse::parseSpeed(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType) {
 	if (stringValue == "speed") {
 		itemType.getAbilities().speed = pugi::cast<int32_t>(valueAttribute.value());
+	}
+}
+
+void ItemParse::parseAttackSpeed(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType) {
+	if (stringValue == "attackspeed") {
+		itemType.getAbilities().attackSpeed = pugi::cast<int32_t>(valueAttribute.value());
 	}
 }
 

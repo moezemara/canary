@@ -387,6 +387,10 @@ public:
 		return value;
 	}
 
+	int32_t getAttackSpeed() const {
+		return items[id].getAttackSpeed();
+	}
+
 	int32_t getSkill(skills_t skill) const {
 		const int32_t value = items[id].getSkill(skill);
 		return value;

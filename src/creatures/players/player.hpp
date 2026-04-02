@@ -634,6 +634,8 @@ public:
 	void setVarStats(stats_t stat, int32_t modifier);
 	int32_t getDefaultStats(stats_t stat) const;
 
+	void setVarAttackSpeed(int32_t delta);
+
 	void addConditionSuppressions(const std::array<ConditionType_t, ConditionType_t::CONDITION_COUNT> &addCondition);
 	void removeConditionSuppressions(const std::vector<ConditionType_t> &toRemoveConditions);
 
@@ -1711,6 +1713,7 @@ private:
 	uint32_t manaMax = 0;
 	int32_t varSkills[SKILL_LAST + 1] = {};
 	int32_t varStats[STAT_LAST + 1] = {};
+	int32_t varAttackSpeed = 0;
 	int32_t shopCallback = -1;
 	int32_t MessageBufferCount = 0;
 	int32_t bloodHitCount = 0;

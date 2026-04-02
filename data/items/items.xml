@@ -75849,6 +75849,7 @@ Granted by TibiaGoals.com"/>
 		<attribute key="attack" value="8"/>
 		<attribute key="defense" value="35"/>
 		<attribute key="skillsword" value="5"/>
+		<attribute key="attackspeed" value="1400"/>
 		<attribute key="weight" value="7900"/>
 		<attribute key="imbuementslot" value="3">
 			<attribute key="life leech" value="3"/>

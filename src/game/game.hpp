@@ -291,6 +291,12 @@ public:
 	void playerHighscores(const std::shared_ptr<Player> &player, HighscoreType_t type, uint8_t category, uint32_t vocation, const std::string &worldName, uint16_t page, uint8_t entriesPerPage);
 	static std::string getSkillNameById(uint8_t &skill);
 
+	// Async DB query — refreshes the offline player level cache every 5 minutes.
+	void refreshTop10Rankings();
+	// Pure memory rebuild — merges live online levels with the DB cache. Runs every 30 sec + after DB refresh.
+	void rebuildTop10Rankings();
+	uint8_t getPlayerHighscoreRank(uint32_t playerGUID) const;
+
 	// House Auction
 	void playerCyclopediaHousesByTown(uint32_t playerId, const std::string &townName);
 	void playerCyclopediaHouseBid(uint32_t playerId, uint32_t houseId, uint64_t bidValue);
@@ -719,6 +725,18 @@ private:
 
 	std::vector<HighscoreCategory> m_highscoreCategories;
 	std::unordered_map<uint8_t, std::string> m_highscoreCategoriesNames;
+
+	// Glow system: top-10 ranking data
+	// DB cache of top-100 players (level+experience) — refreshed every 5 min.
+	// Online players are always overridden with live memory values in rebuildTop10Rankings().
+	struct PlayerRankData {
+		uint32_t guid;
+		uint32_t level;
+		uint64_t experience;
+	};
+	std::vector<PlayerRankData> m_rankingDbCache;
+	// Final computed map: playerGUID -> rank (1-10). Rebuilt every 30 sec from merged data.
+	std::unordered_map<uint32_t, uint8_t> m_top10Rankings;
 
 	std::unordered_map<uint8_t, std::string> m_summaryCategories;
 	std::unordered_map<uint16_t, std::string> m_hirelingSkills;

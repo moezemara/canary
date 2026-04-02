@@ -27,6 +27,7 @@ struct Abilities {
 	int32_t skills[SKILL_LAST + 1] = { 0 };
 
 	int32_t speed = 0;
+	int32_t attackSpeed = 0;
 
 	// field damage abilities modifiers
 	int16_t fieldAbsorbPercent[COMBAT_COUNT] = { 0 };
@@ -222,6 +223,10 @@ public:
 
 	int32_t getSpeed() const {
 		return abilities ? abilities->speed : 0;
+	}
+
+	int32_t getAttackSpeed() const {
+		return abilities ? abilities->attackSpeed : 0;
 	}
 
 	int32_t getSkill(skills_t skill) const {

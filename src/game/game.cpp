@@ -552,6 +552,14 @@ void Game::start(ServiceManager* manager) {
 	[[maybe_unused]] auto eventId6 = g_dispatcher().cycleEvent(
 		EVENT_LUA_GARBAGE_COLLECTION, [this] { g_luaEnvironment().collectGarbage(); }, "Calling GC"
 	);
+	// Glow system: DB refresh every 5 min (offline player cache), memory rebuild every 30 sec (live online levels).
+	[[maybe_unused]] auto eventId_top10_db = g_dispatcher().cycleEvent(
+		5 * 60 * 1000, [this] { refreshTop10Rankings(); }, "Game::refreshTop10Rankings"
+	);
+	[[maybe_unused]] auto eventId_top10_mem = g_dispatcher().cycleEvent(
+		30 * 1000, [this] { rebuildTop10Rankings(); }, "Game::rebuildTop10Rankings"
+	);
+	g_dispatcher().scheduleEvent(5000, [this] { refreshTop10Rankings(); }, "Game::refreshTop10Rankings_initial");
 	auto marketItemsPriceIntervalMinutes = g_configManager().getNumber(MARKET_REFRESH_PRICES);
 	if (marketItemsPriceIntervalMinutes > 0) {
 		auto marketItemsPriceIntervalMS = marketItemsPriceIntervalMinutes * 60000;
@@ -8973,13 +8981,100 @@ void Game::processHighscoreResults(const DBResult_ptr &result, uint32_t playerID
 				const auto &voc = g_vocations().getVocation(result->getNumber<uint16_t>("vocation"));
 				uint8_t characterVocation = voc ? voc->getClientId() : 0;
 				std::string loyaltyTitle; // todo get loyalty title from player
-				characters.emplace_back(std::move(result->getString("name")), result->getNumber<uint64_t>("points"), result->getNumber<uint32_t>("id"), result->getNumber<uint32_t>("rank"), result->getNumber<uint16_t>("level"), characterVocation, loyaltyTitle);
+				characters.emplace_back(std::move(result->getString("name")), result->getNumber<uint64_t>("points"), result->getNumber<uint32_t>("id"), result->getNumber<uint32_t>("rank"), result->getNumber<uint32_t>("level"), characterVocation, loyaltyTitle);
 			} while (result->next());
 		}
 
 		player->sendHighscores(characters, category, vocationCID, page, static_cast<uint16_t>(pages), getTimeNow());
 		highscoreCache[cacheKey] = { characters, page, pages, now };
 	}
+}
+
+void Game::refreshTop10Rankings() {
+	const std::string query = fmt::format(
+		"SELECT `id`, `level`, `experience` FROM `players` WHERE `group_id` < {} ORDER BY `level` DESC, `experience` DESC LIMIT 100",
+		static_cast<int>(GROUP_TYPE_GAMEMASTER)
+	);
+
+	std::function<void(DBResult_ptr, bool)> callback = [this](const DBResult_ptr &result, bool) {
+		g_dispatcher().addEvent([this, result] {
+			m_rankingDbCache.clear();
+			if (result) {
+				do {
+					m_rankingDbCache.push_back({
+						result->getNumber<uint32_t>("id"),
+						result->getNumber<uint32_t>("level"),
+						result->getNumber<uint64_t>("experience")
+					});
+				} while (result->next());
+			}
+			rebuildTop10Rankings();
+		}, "Game::refreshTop10Rankings_update");
+	};
+
+	g_databaseTasks().store(query, callback);
+}
+
+void Game::rebuildTop10Rankings() {
+	const auto &onlinePlayers = getPlayers();
+
+	std::unordered_map<uint32_t, std::pair<uint32_t, uint64_t>> candidates;
+	for (const auto &entry : m_rankingDbCache) {
+		candidates[entry.guid] = { entry.level, entry.experience };
+	}
+	for (const auto &[id, p] : onlinePlayers) {
+		if (!p->isAccessPlayer()) {
+			candidates[p->getGUID()] = { p->getLevel(), p->getExperience() };
+		}
+	}
+
+	std::vector<std::pair<uint32_t, std::pair<uint32_t, uint64_t>>> sorted(candidates.begin(), candidates.end());
+	std::sort(sorted.begin(), sorted.end(), [](const auto &a, const auto &b) {
+		if (a.second.first != b.second.first) return a.second.first > b.second.first;
+		return a.second.second > b.second.second;
+	});
+
+	std::unordered_map<uint32_t, uint8_t> newRankings;
+	for (uint8_t rank = 1; rank <= 10 && static_cast<size_t>(rank - 1) < sorted.size(); ++rank) {
+		newRankings[sorted[rank - 1].first] = rank;
+	}
+
+	auto getTier = [](uint8_t r) -> uint8_t {
+		if (r == 0) return 0;
+		if (r == 1) return 1;
+		if (r == 2) return 2;
+		if (r == 3) return 3;
+		if (r <= 6) return 4;
+		return 5;
+	};
+
+	std::unordered_set<uint32_t> affected;
+	for (const auto &[guid, oldRank] : m_top10Rankings) {
+		uint8_t newRank = 0;
+		auto it = newRankings.find(guid);
+		if (it != newRankings.end()) newRank = it->second;
+		if (getTier(oldRank) != getTier(newRank)) affected.insert(guid);
+	}
+	for (const auto &[guid, newRank] : newRankings) {
+		if (m_top10Rankings.find(guid) == m_top10Rankings.end()) affected.insert(guid);
+	}
+
+	for (uint32_t guid : affected) {
+		const auto &creature = getPlayerByGUID(guid);
+		if (creature) {
+			reloadCreature(creature);
+		}
+	}
+
+	m_top10Rankings = std::move(newRankings);
+}
+
+uint8_t Game::getPlayerHighscoreRank(uint32_t playerGUID) const {
+	auto it = m_top10Rankings.find(playerGUID);
+	if (it != m_top10Rankings.end()) {
+		return it->second;
+	}
+	return 0;
 }
 
 void Game::cacheQueryHighscore(const std::string &key, const std::string &query, uint32_t page, uint8_t entriesPerPage) {

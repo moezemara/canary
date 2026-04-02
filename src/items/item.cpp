@@ -1851,6 +1851,12 @@ Item::getDescriptions(const ItemType &it, const std::shared_ptr<Item> &item /*= 
 				descriptions.emplace_back("Speed", ss.str());
 			}
 
+			if (it.abilities->attackSpeed) {
+				ss.str("");
+				ss << std::showpos << it.abilities->attackSpeed << std::noshowpos << " ms";
+				descriptions.emplace_back("Attack Speed", ss.str());
+			}
+
 			if (it.abilities->cleavePercent) {
 				ss.str("");
 				ss << std::showpos << (it.abilities->cleavePercent) << std::noshowpos << "%";
@@ -2155,6 +2161,12 @@ Item::getDescriptions(const ItemType &it, const std::shared_ptr<Item> &item /*= 
 			appendAbilityEffects(it, descriptions, ss);
 			appendFieldProtectionDescription(it, descriptions, ss);
 			appendSkillBoostEffects(it, descriptions, ss);
+
+			if (it.abilities->attackSpeed) {
+				ss.str("");
+				ss << std::showpos << it.abilities->attackSpeed << std::noshowpos << " ms";
+				descriptions.emplace_back("Attack Speed", ss.str());
+			}
 		}
 
 		if (it.imbuementSlot > 0) {

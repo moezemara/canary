@@ -1,2 +1,3 @@
 dofile(DATA_DIRECTORY .. "/lib/core/storages.lua")
-require("data-canary.lib.core.quests")
+dofile(DATA_DIRECTORY .. "/lib/core/constants.lua")
+require("data-otservbr-global.lib.core.quests")

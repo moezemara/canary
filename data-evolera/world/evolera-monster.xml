@@ -3815,15 +3815,16 @@
 		<monster name="Pig" x="-4" y="-3" z="5" spawntime="1" />
 		<monster name="Terror Bird" x="-2" y="2" z="5" spawntime="1" />
 	</monster>
+	<monster centerx="2421" centery="968" centerz="5" radius="5">
+		<monster name="blue djenius" x="-1" y="-4" z="5" spawntime="10" />
+		<monster name="green djenius" x="-1" y="-2" z="5" spawntime="10" />
+		<monster name="Wizardino" x="-1" y="0" z="5" spawntime="10" />
+		<monster name="Sorcerino" x="-1" y="2" z="5" spawntime="10" />
+		<monster name="Xynex" x="-1" y="4" z="5" spawntime="10" />
+	</monster>
 	<monster centerx="2421" centery="969" centerz="5" radius="5">
-		<monster name="blue djenius" x="-1" y="-5" z="5" spawntime="10" />
-		<monster name="green djenius" x="-1" y="-3" z="5" spawntime="10" />
-		<monster name="Wizardino" x="-1" y="-1" z="5" spawntime="10" />
-		<monster name="Sorcerino" x="-1" y="1" z="5" spawntime="10" />
-		<monster name="Xynex" x="-1" y="3" z="5" spawntime="10" />
 		<monster name="Undead Skeleton" x="-1" y="5" z="5" spawntime="10" />
 	</monster>
-	<monster centerx="2429" centery="969" centerz="5" radius="5" />
 	<monster centerx="2799" centery="985" centerz="5" radius="30">
 		<monster name="blue djenius" x="5" y="-12" z="5" spawntime="10" />
 		<monster name="blue djenius" x="9" y="-12" z="5" spawntime="10" />

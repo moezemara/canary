@@ -64,6 +64,7 @@ const phmap::flat_hash_map<std::string, ItemParseAttributes_t> ItemParseAttribut
 	{ "maxhitchance", ITEM_PARSE_MAXHITCHANCE },
 	{ "invisible", ITEM_PARSE_INVISIBLE },
 	{ "speed", ITEM_PARSE_SPEED },
+	{ "attackspeed", ITEM_PARSE_ATTACKSPEED },
 	{ "healthgain", ITEM_PARSE_HEALTHGAIN },
 	{ "healthticks", ITEM_PARSE_HEALTHTICKS },
 	{ "managain", ITEM_PARSE_MANAGAIN },
@@ -303,6 +304,7 @@ private:
 	static void parseHitChance(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseInvisible(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseSpeed(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
+	static void parseAttackSpeed(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseHealthAndMana(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseSkills(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
 	static void parseCriticalHit(const std::string &stringValue, pugi::xml_attribute valueAttribute, ItemType &itemType);
