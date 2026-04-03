@@ -2,7 +2,7 @@
 <houses>
 	<house name="" houseid="1" entryx="0" entryy="0" entryz="0" rent="0" townid="0" size="225" clientid="0" beds="0" />
 	<house name="" houseid="3" entryx="0" entryy="0" entryz="0" rent="0" townid="0" size="0" clientid="0" beds="0" />
-	<house name="Enigma Square VI" houseid="6" entryx="999" entryy="1007" entryz="7" rent="3100" townid="1" size="128" clientid="0" beds="0" />
+	<house name="Enigma Square VI" houseid="6" entryx="999" entryy="1007" entryz="7" rent="3100" townid="1" size="129" clientid="0" beds="0" />
 	<house name="Enigma Square VII" houseid="7" entryx="1007" entryy="1007" entryz="7" rent="3500" townid="1" size="133" clientid="0" beds="0" />
 	<house name="Enigma Plaza I" houseid="10" entryx="985" entryy="1017" entryz="7" rent="1050" townid="1" size="22" clientid="0" beds="0" />
 	<house name="Enigma Plaza II" houseid="11" entryx="985" entryy="1021" entryz="7" rent="1450" townid="1" size="30" clientid="0" beds="0" />
@@ -562,7 +562,7 @@
 	<house name="Pandablue Don house" houseid="2330" entryx="536" entryy="2096" entryz="7" rent="0" townid="1" size="2673" clientid="0" beds="0" />
 	<house name="Rewardroomprohouse" houseid="2331" entryx="0" entryy="0" entryz="0" rent="0" townid="1" size="4" clientid="0" beds="0" />
 	<house name="Saffrans House" houseid="2332" entryx="2050" entryy="2171" entryz="7" rent="0" townid="1" size="1011" clientid="0" beds="0" />
-	<house name="Saffrans Hotel" houseid="2333" entryx="2080" entryy="2164" entryz="7" rent="0" townid="1" size="342" clientid="0" beds="0" />
+	<house name="Saffrans Hotel" houseid="2333" entryx="998" entryy="992" entryz="6" rent="0" townid="1" size="344" clientid="0" beds="0" />
 	<house name="Saffranbulle #1" houseid="2334" entryx="2077" entryy="2151" entryz="6" rent="0" townid="1" size="31" clientid="0" beds="0" />
 	<house name="Saffranbulle #2" houseid="2335" entryx="2083" entryy="2150" entryz="6" rent="0" townid="1" size="37" clientid="0" beds="0" />
 	<house name="Saffranbulle #3" houseid="2336" entryx="2077" entryy="2156" entryz="6" rent="0" townid="1" size="21" clientid="0" beds="0" />
@@ -595,7 +595,7 @@
 	<house name="Saffranbulle #30" houseid="2364" entryx="2077" entryy="2161" entryz="2" rent="0" townid="1" size="27" clientid="0" beds="0" />
 	<house name="Saffranbulle Deluxe #31" houseid="2365" entryx="2076" entryy="2151" entryz="1" rent="0" townid="1" size="60" clientid="0" beds="0" />
 	<house name="Saffranbulle Deluxe #32" houseid="2366" entryx="2082" entryy="2151" entryz="1" rent="0" townid="1" size="90" clientid="0" beds="0" />
-	<house name="Tempestarum" houseid="2367" entryx="998" entryy="990" entryz="6" rent="0" townid="1" size="3939" clientid="0" beds="0" />
+	<house name="Tempestarum" houseid="2367" entryx="998" entryy="990" entryz="6" rent="0" townid="1" size="3938" clientid="0" beds="0" />
 	<house name="Capone #1" houseid="2368" entryx="1841" entryy="2394" entryz="7" rent="0" townid="1" size="12322" clientid="0" beds="0" />
 	<house name="Lavahouse #1" houseid="2369" entryx="2196" entryy="1057" entryz="7" rent="0" townid="1" size="71" clientid="0" beds="0" />
 	<house name="Lavahouse #2" houseid="2370" entryx="2187" entryy="1057" entryz="7" rent="0" townid="1" size="72" clientid="0" beds="0" />
