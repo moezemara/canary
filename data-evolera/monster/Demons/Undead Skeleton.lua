@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("Undead Skeleton")
 local monster = {}
 
 monster.description = "a undead skeleton"
-monster.experience = 0
+monster.experience = 216750000000
 monster.outfit = {
 	lookType = 232,
 	lookHead = 0,

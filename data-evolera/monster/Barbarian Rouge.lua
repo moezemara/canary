@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("Barbarian Rouge")
 local monster = {}
 
 monster.description = "a Barbarian Rouge"
-monster.experience = 0
+monster.experience = 36000000000
 monster.outfit = {
 	lookType = 254,
 	lookHead = 0,

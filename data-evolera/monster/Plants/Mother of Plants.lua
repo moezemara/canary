@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("mother of plants")
 local monster = {}
 
 monster.description = "a mother of plants"
-monster.experience = 20
+monster.experience = 3684750000000
 monster.outfit = {
 	lookType = 221,
 	lookHead = 20,

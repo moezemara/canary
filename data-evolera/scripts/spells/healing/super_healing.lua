@@ -1,0 +1,22 @@
+local spell = Spell("instant")
+function spell.onCastSpell(creature, var)
+    local heal = math.floor(creature:getMaxHealth() / 100 * math.random(75, 78))
+    creature:addHealth(heal)
+    creature:getPosition():sendMagicEffect(CONST_ME_MAGIC_RED)
+    return true
+end
+
+spell:group("healing")
+spell:id(561)
+spell:name("Super Healing")
+spell:words("exura super vita")
+spell:level(100000)
+spell:mana(3000)
+spell:isSelfTarget(true)
+spell:isPremium(true)
+spell:isAggressive(false)
+spell:cooldown(1 * 500)
+spell:groupCooldown(1 * 500)
+spell:needLearn(false)
+spell:vocation("paladin;true", "royal paladin;true")
+spell:register()

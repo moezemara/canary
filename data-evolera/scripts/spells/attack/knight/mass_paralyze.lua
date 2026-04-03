@@ -1,0 +1,28 @@
+local condition = Condition(CONDITION_PARALYZE)
+condition:setParameter(CONDITION_PARAM_TICKS, 20000)
+condition:setFormula(-1, 20, -2, 40)
+
+local combat = Combat()
+combat:setParameter(COMBAT_PARAM_TYPE, COMBAT_NONE)
+combat:setParameter(COMBAT_PARAM_EFFECT, CONST_ME_MAGIC_BLUE)
+combat:addCondition(condition)
+combat:setArea(createCombatArea(AREA_SQUARE1X1))
+
+local spell = Spell("instant")
+function spell.onCastSpell(creature, var)
+    return combat:execute(creature, var)
+end
+
+spell:group("attack")
+spell:id(559)
+spell:name("Mass Paralyze")
+spell:words("exori paralyze")
+spell:level(1000000)
+spell:manaPercent(10)
+spell:isPremium(true)
+spell:cooldown(1 * 1000)
+spell:groupCooldown(1 * 1000)
+spell:needLearn(false)
+spell:isAggressive(false)
+spell:vocation("elite knight;true")
+spell:register()

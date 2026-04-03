@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("Frost Dragonel")
 local monster = {}
 
 monster.description = "a frost dragonel"
-monster.experience = 0
+monster.experience = 36000000000
 monster.outfit = {
 	lookType = 283,
 	lookHead = 0,

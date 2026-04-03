@@ -7634,7 +7634,12 @@
 		<attribute key="charges" value="2"/>
 		<attribute key="weight" value="105"/>
 	</item>
-	<item fromid="3150" toid="3151" article="a" name="spell rune">
+	<item id="3150" article="a" name="Sudden Death Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3151" article="a" name="Severe Sudden Death Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7651,7 +7656,7 @@
 		<attribute key="charges" value="1"/>
 		<attribute key="weight" value="210"/>
 	</item>
-	<item id="3154" article="a" name="spell rune">
+	<item id="3154" article="a" name="Divine Healing Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7670,7 +7675,7 @@
 		<attribute key="charges" value="2"/>
 		<attribute key="weight" value="105"/>
 	</item>
-	<item id="3157" article="a" name="spell rune">
+	<item id="3157" article="a" name="Superior Healing Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7682,7 +7687,7 @@
 		<attribute key="charges" value="5"/>
 		<attribute key="weight" value="42"/>
 	</item>
-	<item id="3159" article="a" name="spell rune">
+	<item id="3159" article="a" name="Strong Healing Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7700,7 +7705,12 @@
 		<attribute key="charges" value="4"/>
 		<attribute key="weight" value="52"/>
 	</item>
-	<item fromid="3162" toid="3163" article="a" name="spell rune">
+	<item id="3162" article="a" name="Ultimate Healing Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3163" article="a" name="spell rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7726,7 +7736,27 @@
 		<attribute key="charges" value="4"/>
 		<attribute key="weight" value="52"/>
 	</item>
-	<item fromid="3167" toid="3171" article="a" name="spell rune">
+	<item id="3167" article="a" name="spell rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3168" article="a" name="Healing Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3169" article="a" name="Intense Healing Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3170" article="a" name="spell rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3171" article="a" name="Greater Healing Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7794,7 +7824,7 @@
 		<attribute key="charges" value="3"/>
 		<attribute key="weight" value="70"/>
 	</item>
-	<item id="3181" article="a" name="spell rune">
+	<item id="3181" article="a" name="Strong Mana Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7806,7 +7836,27 @@
 		<attribute key="charges" value="5"/>
 		<attribute key="weight" value="42"/>
 	</item>
-	<item fromid="3183" toid="3187" article="a" name="spell rune">
+	<item id="3183" article="a" name="Mana Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3184" article="a" name="Lesser Mana Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3185" article="a" name="Intense Mana Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3186" article="a" name="Superior Mana Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3187" article="a" name="Greater Mana Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>
@@ -7846,7 +7896,12 @@
 		<attribute key="charges" value="2"/>
 		<attribute key="weight" value="105"/>
 	</item>
-	<item fromid="3193" toid="3194" article="a" name="spell rune">
+	<item id="3193" article="a" name="Intense Sudden Death Rune">
+		<attribute key="primarytype" value="utilities"/>
+		<attribute key="type" value="rune"/>
+		<attribute key="weight" value="120"/>
+	</item>
+	<item id="3194" article="a" name="Ultimate Mana Rune">
 		<attribute key="primarytype" value="utilities"/>
 		<attribute key="type" value="rune"/>
 		<attribute key="weight" value="120"/>

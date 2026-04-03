@@ -1,0 +1,28 @@
+local condition = Condition(CONDITION_ENERGY)
+condition:setParameter(CONDITION_PARAM_DELAYED, 1)
+condition:addDamage(20, 2000, -2000000)
+
+local combat = Combat()
+combat:setParameter(COMBAT_PARAM_TYPE, COMBAT_ENERGYDAMAGE)
+combat:setParameter(COMBAT_PARAM_EFFECT, CONST_ME_ENERGYHIT)
+combat:setParameter(COMBAT_PARAM_DISTANCEEFFECT, CONST_ANI_ENERGY)
+combat:addCondition(condition)
+
+local spell = Spell("instant")
+function spell.onCastSpell(creature, var)
+    return combat:execute(creature, var)
+end
+
+spell:group("attack")
+spell:id(541)
+spell:name("Supreme Energy Strike")
+spell:words("exori super energy")
+spell:level(500000)
+spell:manaPercent(1)
+spell:isPremium(true)
+spell:cooldown(1 * 1000)
+spell:groupCooldown(1 * 1000)
+spell:needLearn(false)
+spell:needTarget(true)
+spell:vocation("paladin;true", "royal paladin;true")
+spell:register()
