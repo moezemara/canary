@@ -326,6 +326,7 @@ private:
 	void sendPartyPlayerVocation(const std::shared_ptr<Player> &target);
 	void sendPlayerVocation(const std::shared_ptr<Player> &target);
 	void sendSkills();
+	void sendAttackSpeedUpdate();
 	void sendPing();
 	void sendPingBack();
 	void sendCreatureTurn(const std::shared_ptr<Creature> &creature, uint32_t stackpos);

@@ -542,7 +542,7 @@
 	<house name="Utedasset" houseid="2303" entryx="2207" entryy="952" entryz="7" rent="0" townid="1" size="1184" clientid="0" beds="0" />
 	<house name="Carlin special" houseid="2304" entryx="2587" entryy="2562" entryz="7" rent="0" guildhall="true" townid="1" size="314" clientid="0" beds="0" />
 	<house name="Speciale Carlin #2" houseid="2305" entryx="2610" entryy="2562" entryz="7" rent="0" townid="1" size="163" clientid="0" beds="0" />
-	<house name="Besthouse #1" houseid="2306" entryx="985" entryy="1017" entryz="7" rent="0" townid="1" size="57" clientid="0" beds="0" />
+	<house name="Besthouse #1" houseid="2306" entryx="999" entryy="995" entryz="7" rent="0" townid="1" size="57" clientid="0" beds="0" />
 	<house name="Outside Dp #1" houseid="2310" entryx="1011" entryy="991" entryz="7" rent="0" townid="1" size="33" clientid="0" beds="0" />
 	<house name="Teleport Guildhall ##2" houseid="2311" entryx="2439" entryy="911" entryz="7" rent="0" townid="1" size="511" clientid="0" beds="0" />
 	<house name="house#1" houseid="2312" entryx="2025" entryy="2237" entryz="7" rent="0" townid="1" size="79" clientid="0" beds="0" />

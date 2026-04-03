@@ -1852,9 +1852,7 @@ Item::getDescriptions(const ItemType &it, const std::shared_ptr<Item> &item /*= 
 			}
 
 			if (it.abilities->attackSpeed) {
-				ss.str("");
-				ss << std::showpos << it.abilities->attackSpeed << std::noshowpos << " ms";
-				descriptions.emplace_back("Attack Speed", ss.str());
+				descriptions.emplace_back("Attack Speed", fmt::format("{:+.2f}s", it.abilities->attackSpeed / 1000.0));
 			}
 
 			if (it.abilities->cleavePercent) {
@@ -2163,9 +2161,7 @@ Item::getDescriptions(const ItemType &it, const std::shared_ptr<Item> &item /*= 
 			appendSkillBoostEffects(it, descriptions, ss);
 
 			if (it.abilities->attackSpeed) {
-				ss.str("");
-				ss << std::showpos << it.abilities->attackSpeed << std::noshowpos << " ms";
-				descriptions.emplace_back("Attack Speed", ss.str());
+				descriptions.emplace_back("Attack Speed", fmt::format("{:+.2f}s", it.abilities->attackSpeed / 1000.0));
 			}
 		}
 
@@ -2491,7 +2487,7 @@ std::string Item::parseShowAttributesDescription(const std::shared_ptr<Item> &it
 	std::ostringstream itemDescription;
 	const ItemType &itemType = Item::items[itemId];
 
-	if (itemType.armor != 0 || (item && item->getArmor() != 0) || itemType.showAttributes) {
+	if (itemType.armor != 0 || (item && item->getArmor() != 0) || itemType.showAttributes || (itemType.abilities && itemType.abilities->attackSpeed)) {
 		bool begin = itemType.isQuiver() ? false : true;
 
 		const int32_t armor = (item ? item->getArmor() : itemType.armor);
@@ -2533,6 +2529,17 @@ std::string Item::parseShowAttributesDescription(const std::shared_ptr<Item> &it
 				}
 
 				itemDescription << "Cleave " << std::showpos << (itemType.abilities->cleavePercent) << std::noshowpos << "%";
+			}
+
+			if (itemType.abilities->attackSpeed) {
+				if (begin) {
+					begin = false;
+					itemDescription << " (";
+				} else {
+					itemDescription << ", ";
+				}
+
+				itemDescription << fmt::format("Atk Spd {:+.2f}s", itemType.abilities->attackSpeed / 1000.0);
 			}
 		}
 
@@ -2839,7 +2846,7 @@ std::string Item::getDescription(const ItemType &it, int32_t lookDistance, const
 					} else {
 						s << ", ";
 					}
-					s << "attack speed " << std::showpos << it.abilities->attackSpeed;
+					s << fmt::format("attack speed {:+.2f}s", it.abilities->attackSpeed / 1000.0);
 				}
 
 				if (it.abilities->cleavePercent) {
@@ -3142,6 +3149,16 @@ std::string Item::getDescription(const ItemType &it, int32_t lookDistance, const
 					}
 
 					s << "Cleave " << std::showpos << (it.abilities->cleavePercent) << std::noshowpos << "%";
+				}
+
+				if (it.abilities->attackSpeed) {
+					if (begin) {
+						begin = false;
+						s << " (";
+					} else {
+						s << ", ";
+					}
+					s << fmt::format("attack speed {:+.2f}s", it.abilities->attackSpeed / 1000.0);
 				}
 			}
 

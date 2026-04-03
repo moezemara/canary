@@ -1506,8 +1506,8 @@ uint16_t Creature::getSpeed() const {
 }
 
 void Creature::setSpeed(int32_t varSpeedDelta) {
-	// Prevents creatures from not exceeding the maximum allowed speed
-	if (getSpeed() >= PLAYER_MAX_SPEED) {
+	// Prevents creatures from exceeding the maximum allowed speed
+	if (getSpeed() >= g_configManager().getNumber(MAX_PLAYER_SPEED)) {
 		return;
 	}
 

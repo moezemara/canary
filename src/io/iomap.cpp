@@ -168,10 +168,10 @@ void IOMap::parseTileArea(FileStream &stream, Map &map, const Position &pos) {
 					item->id = id;
 
 					if (tile->isHouse() && iType.movable) {
-						g_logger().warn("[IOMap::loadMap] - "
-						                "Movable item with ID: {}, in house: {}, "
-						                "at position: x {}, y {}, z {}",
-						                id, tile->houseId, x, y, z);
+						// g_logger().warn("[IOMap::loadMap] - "
+						//                 "Movable item with ID: {}, in house: {}, "
+						//                 "at position: x {}, y {}, z {}",
+						//                 id, tile->houseId, x, y, z);
 					} else if (iType.isGroundTile()) {
 						tile->ground = map.tryReplaceItemFromCache(item);
 					} else {
@@ -196,10 +196,10 @@ void IOMap::parseTileArea(FileStream &stream, Map &map, const Position &pos) {
 						if (tile->isHouse() && (iType.isBed() || iType.isTrashHolder())) {
 							// nothing
 						} else if (tile->isHouse() && iType.movable) {
-							g_logger().warn("[IOMap::loadMap] - "
-							                "Movable item with ID: {}, in house: {}, "
-							                "at position: x {}, y {}, z {}",
-							                id, tile->houseId, x, y, z);
+							// g_logger().warn("[IOMap::loadMap] - "
+							//                 "Movable item with ID: {}, in house: {}, "
+							//                 "at position: x {}, y {}, z {}",
+							//                 id, tile->houseId, x, y, z);
 						} else if (iType.isGroundTile()) {
 							tile->ground = map.tryReplaceItemFromCache(item);
 						} else {

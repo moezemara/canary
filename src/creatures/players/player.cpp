@@ -2733,7 +2733,27 @@ void Player::onWalk(Direction &dir) {
 	}
 
 	Creature::onWalk(dir);
-	setNextActionTask(nullptr);
+
+	// Reset stacking bonus if player stopped long enough
+	const auto decayMs = static_cast<uint64_t>(g_configManager().getNumber(MOVEMENT_ATTACK_SPEED_DECAY_MS));
+	if (OTSYS_TIME() - lastWalkTime > decayMs) {
+		walkAttackBonus = 0;
+	}
+	lastWalkTime = OTSYS_TIME();
+
+	// Stack bonus per step (capped)
+	const auto bonusPerStep = static_cast<uint32_t>(g_configManager().getNumber(MOVEMENT_ATTACK_SPEED_BONUS_PER_STEP));
+	const auto maxBonus = static_cast<uint32_t>(g_configManager().getNumber(MOVEMENT_ATTACK_SPEED_MAX_BONUS));
+	walkAttackBonus = std::min(walkAttackBonus + bonusPerStep, maxBonus);
+
+	if (client) {
+		client->sendAttackSpeedUpdate();
+	}
+
+	// Only cancel action task when NOT attacking — preserve the scheduled attack loop
+	if (!getAttackedCreature()) {
+		setNextActionTask(nullptr);
+	}
 
 	g_callbacks().executeCallback(EventCallback_t::playerOnWalk, getPlayer(), dir);
 }
@@ -6919,8 +6939,13 @@ void Player::checkSkullTicks(int64_t ticks) {
 	}
 }
 
+uint16_t Player::getStepSpeed() const {
+	const uint16_t maxStepSpeed = hasFlag(PlayerFlags_t::SetMaxSpeed) ? PLAYER_MAX_STAFF_SPEED : static_cast<uint16_t>(g_configManager().getNumber(MAX_PLAYER_SPEED));
+	return std::max<uint16_t>(PLAYER_MIN_SPEED, std::min<uint16_t>(maxStepSpeed, getSpeed()));
+}
+
 void Player::updateBaseSpeed() {
-	const uint16_t maxSpeed = hasFlag(PlayerFlags_t::SetMaxSpeed) ? PLAYER_MAX_STAFF_SPEED : PLAYER_MAX_SPEED;
+	const uint16_t maxSpeed = hasFlag(PlayerFlags_t::SetMaxSpeed) ? PLAYER_MAX_STAFF_SPEED : static_cast<uint16_t>(g_configManager().getNumber(MAX_PLAYER_SPEED));
 	if (!hasFlag(PlayerFlags_t::SetMaxSpeed)) {
 		const uint32_t computedSpeed = vocation->getBaseSpeed() + (level - 1);
 		baseSpeed = static_cast<uint16_t>(std::min<uint32_t>(computedSpeed, maxSpeed));
@@ -6935,9 +6960,29 @@ bool Player::isPromoted() const {
 }
 
 uint32_t Player::getAttackSpeed() const {
-	const int32_t base = static_cast<int32_t>(vocation->getAttackSpeed());
+	const double baseAps = 1000.0 / vocation->getAttackSpeed();
+	const double itemAps = varAttackSpeed / 1000.0;
+
+	// Apply walk bonus (milli-APS) only while actively moving (within decay window)
+	double walkAps = 0.0;
+	if (walkAttackBonus > 0) {
+		const auto decayMs = static_cast<uint64_t>(g_configManager().getNumber(MOVEMENT_ATTACK_SPEED_DECAY_MS));
+		if (OTSYS_TIME() - lastWalkTime < decayMs) {
+			walkAps = walkAttackBonus / 1000.0;
+		}
+	}
+
+	const double finalAps = baseAps + itemAps + walkAps;
 	const int32_t minSpeed = g_configManager().getNumber(MIN_ATTACK_SPEED);
-	return static_cast<uint32_t>(std::max(minSpeed, base - varAttackSpeed));
+	return static_cast<uint32_t>(std::max(minSpeed, static_cast<int32_t>(1000.0 / finalAps)));
+}
+
+uint32_t Player::getStaticAttackSpeed() const {
+	const double baseAps = 1000.0 / vocation->getAttackSpeed();
+	const double itemAps = varAttackSpeed / 1000.0;
+	const double finalAps = baseAps + itemAps;
+	const int32_t minSpeed = g_configManager().getNumber(MIN_ATTACK_SPEED);
+	return static_cast<uint32_t>(std::max(minSpeed, static_cast<int32_t>(1000.0 / finalAps)));
 }
 
 double Player::getLostPercent() const {

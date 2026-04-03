@@ -593,12 +593,9 @@ function Player:onGainExperience(target, exp, rawExp)
 		end
 	end
 
-	-- Final Adjustments: Low Level Bonus and Base Rate
-	local lowLevelBonusExp = self:getFinalLowLevelBonus()
-	local baseRateExp = self:getFinalBaseRateExperience()
-
-	-- Return final experience value
-	return (exp * (1 + xpBoostPercent / 100 + lowLevelBonusExp / 100)) * staminaBonusXp * baseRateExp
+	-- Final: catch-up multiplier × effective rate (stamina × base rate × (1 + guild + XP boost))
+	local catchupMult = CatchUp.getMultiplier(self)
+	return exp * catchupMult * ExpBonus.getEffectiveRate(self)
 end
 
 function Player:onLoseExperience(exp)

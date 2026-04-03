@@ -6722,6 +6722,18 @@ void ProtocolGame::sendSkills() {
 	writeToOutputBuffer(msg);
 }
 
+void ProtocolGame::sendAttackSpeedUpdate() {
+	if (!player) {
+		return;
+	}
+	NetworkMessage msg;
+	msg.addByte(0xBC);
+	msg.add<uint16_t>(static_cast<uint16_t>(player->getWalkAttackBonus()));
+	msg.add<uint16_t>(static_cast<uint16_t>(player->getAttackSpeed()));
+	msg.add<uint16_t>(static_cast<uint16_t>(g_configManager().getNumber(MOVEMENT_ATTACK_SPEED_DECAY_MS)));
+	writeToOutputBuffer(msg);
+}
+
 void ProtocolGame::sendPing() {
 	if (player) {
 		NetworkMessage msg;
@@ -8453,6 +8465,11 @@ void ProtocolGame::AddPlayerSkills(NetworkMessage &msg) {
 	msg.addDouble(getForgeSkillStat(CONST_SLOT_HEAD)); // Momentum
 	msg.addDouble(getForgeSkillStat(CONST_SLOT_LEGS)); // Transcedence
 	msg.addDouble(getForgeSkillStat(CONST_SLOT_FEET, false)); // Amplification
+
+	// Attack speed stats: base (vocation - items), walk bonus, final (with walk bonus applied)
+	msg.add<uint16_t>(static_cast<uint16_t>(player->getStaticAttackSpeed()));
+	msg.add<uint16_t>(static_cast<uint16_t>(player->getWalkAttackBonus()));
+	msg.add<uint16_t>(static_cast<uint16_t>(player->getAttackSpeed()));
 }
 
 void ProtocolGame::AddOutfit(NetworkMessage &msg, const Outfit_t &outfit, bool addMount /* = true*/) {

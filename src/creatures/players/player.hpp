@@ -107,7 +107,7 @@ struct OpenContainer {
 
 using MuteCountMap = std::map<uint32_t, uint32_t>;
 
-static constexpr uint16_t PLAYER_MAX_SPEED = std::numeric_limits<uint16_t>::max();
+static constexpr uint16_t PLAYER_MAX_SPEED = 2000; // fallback; runtime cap set by maxPlayerSpeed config
 static constexpr uint16_t PLAYER_MAX_STAFF_SPEED = 1500;
 static constexpr uint16_t PLAYER_MIN_SPEED = 10;
 static constexpr uint8_t PLAYER_SOUND_HEALTH_CHANGE = 10;
@@ -1637,6 +1637,8 @@ private:
 	uint64_t experience = 0;
 	uint64_t manaSpent = 0;
 	uint64_t lastAttack = 0;
+	uint32_t walkAttackBonus = 0;
+	uint64_t lastWalkTime = 0;
 	std::unordered_map<uint8_t, uint64_t> lastConditionTime;
 	uint64_t lastAggressiveAction = 0;
 	uint64_t bankBalance = 0;
@@ -1818,15 +1820,16 @@ private:
 	int32_t marriageSpouse = -1;
 
 	void updateItemsLight(bool internal = false);
-	uint16_t getStepSpeed() const override {
-		const uint16_t maxStepSpeed = hasFlag(PlayerFlags_t::SetMaxSpeed) ? PLAYER_MAX_STAFF_SPEED : PLAYER_MAX_SPEED;
-		return std::max<uint16_t>(PLAYER_MIN_SPEED, std::min<uint16_t>(maxStepSpeed, getSpeed()));
-	}
+	uint16_t getStepSpeed() const override;
 	void updateBaseSpeed();
 
 	bool isPromoted() const;
 
 	uint32_t getAttackSpeed() const;
+	uint32_t getStaticAttackSpeed() const;
+	uint32_t getWalkAttackBonus() const {
+		return walkAttackBonus;
+	}
 
 	static double_t getPercentLevel(uint64_t count, uint64_t nextLevelCount);
 	double getLostPercent() const;

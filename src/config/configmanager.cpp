@@ -111,6 +111,8 @@ bool ConfigManager::load() {
 	loadBoolConfig(L, PREY_ENABLED, "preySystemEnabled", true);
 	loadBoolConfig(L, PREY_FREE_THIRD_SLOT, "preyFreeThirdSlot", false);
 	loadBoolConfig(L, PUSH_WHEN_ATTACKING, "pushWhenAttacking", false);
+	loadBoolConfig(L, PVP_EXP_BLOCK_SAME_ACCOUNT, "pvpExpBlockSameAccount", true);
+	loadBoolConfig(L, PVP_EXP_BLOCK_SAME_IP, "pvpExpBlockSameIp", true);
 	loadBoolConfig(L, RATE_USE_STAGES, "rateUseStages", false);
 	loadBoolConfig(L, REFUND_BEGINNING_WEAPON_MANA, "refundBeginningWeaponMana", false);
 	loadBoolConfig(L, REMOVE_BEGINNING_WEAPON_AMMO, "removeBeginningWeaponAmmunition", true);
@@ -290,10 +292,14 @@ bool ConfigManager::load() {
 	loadIntConfig(L, MAX_PLAYERS_PER_ACCOUNT, "maxPlayersOnlinePerAccount", 1);
 	loadIntConfig(L, MAX_PLAYERS, "maxPlayers", 0);
 	loadIntConfig(L, METRICS_OSTREAM_INTERVAL, "metricsOstreamInterval", 1000);
+	loadIntConfig(L, MAX_PLAYER_SPEED, "maxPlayerSpeed", 2000);
 	loadIntConfig(L, MIN_ATTACK_SPEED, "minAttackSpeed", 50);
 	loadIntConfig(L, MIN_DELAY_BETWEEN_CONDITIONS, "minDelayBetweenConditions", 0);
 	loadIntConfig(L, MIN_ELEMENTAL_RESISTANCE, "minElementalResistance", -200);
 	loadIntConfig(L, MIN_TOWN_ID_TO_BANK_TRANSFER_FROM_MAIN, "minTownIdToBankTransferFromMain", 4);
+	loadIntConfig(L, MOVEMENT_ATTACK_SPEED_BONUS_PER_STEP, "movementAttackSpeedBonusPerStep", 30);
+	loadIntConfig(L, MOVEMENT_ATTACK_SPEED_DECAY_MS, "movementAttackSpeedDecayMs", 1000);
+	loadIntConfig(L, MOVEMENT_ATTACK_SPEED_MAX_BONUS, "movementAttackSpeedMaxBonus", 150);
 	loadIntConfig(L, MONTH_KILLS_TO_RED, "monthKillsToRedSkull", 10);
 	loadIntConfig(L, ORANGE_SKULL_DURATION, "orangeSkullDuration", 7);
 	loadIntConfig(L, LOGIN_PROTECTION_TIME, "loginProtectionTime", 10000);

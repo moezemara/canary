@@ -160,6 +160,14 @@ function playerLoginGlobal.onLogin(player)
 	player:registerEvent("DropLoot")
 	player:registerEvent("BossParticipation")
 	player:registerEvent("UpdatePlayerOnAdvancedLevel")
+	player:registerEvent("PvPExperience")
+
+	-- Load persisted guild exp bonus into KV so it's available immediately on login
+	local guildBonusRes = db.storeQuery("SELECT exp_bonus_guild FROM players WHERE id = " .. player:getGuid())
+	if guildBonusRes then
+		player:kv():scoped("exp-bonus"):set("guild", Result.getNumber(guildBonusRes, "exp_bonus_guild"))
+		Result.free(guildBonusRes)
+	end
 
 	if vocation and vocation:getBaseId() == VOCATION.BASE_ID.MONK then
 		local kv = player:kv()
