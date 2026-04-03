@@ -190,6 +190,10 @@ function onBlitzGrabTarget(caster, target)
 		caster:sendTextMessage(MESSAGE_STATUS, "You can only grab players.")
 		return false
 	end
+	if blitzGrabActive[caster:getId()] then
+		caster:sendTextMessage(MESSAGE_STATUS, "You cannot grab while you are being pulled!")
+		return false
+	end
 	if target:getTile():isPz() then
 		caster:sendTextMessage(MESSAGE_STATUS, "Your target is in a protection zone.")
 		return false
