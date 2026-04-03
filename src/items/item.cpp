@@ -2832,6 +2832,16 @@ std::string Item::getDescription(const ItemType &it, int32_t lookDistance, const
 					s << parseShowDurationSpeed(it.abilities->speed, begin);
 				}
 
+				if (it.abilities->attackSpeed) {
+					if (begin) {
+						begin = false;
+						s << " (";
+					} else {
+						s << ", ";
+					}
+					s << "attack speed " << std::showpos << it.abilities->attackSpeed;
+				}
+
 				if (it.abilities->cleavePercent) {
 					if (begin) {
 						begin = false;
