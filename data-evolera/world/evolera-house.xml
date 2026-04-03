@@ -619,7 +619,7 @@
 	<house name="West Coast Mansion" houseid="2388" entryx="0" entryy="0" entryz="0" rent="0" townid="1" size="107" clientid="0" beds="0" />
 	<house name="West Enigma #5" houseid="2389" entryx="963" entryy="1008" entryz="7" rent="0" townid="1" size="22" clientid="0" beds="0" />
 	<house name="Southwest Enigma Guildhall" houseid="2390" entryx="972" entryy="1017" entryz="7" rent="0" guildhall="true" townid="1" size="436" clientid="0" beds="0" />
-	<house name="South Enigma Casino #1" houseid="2391" entryx="982" entryy="1031" entryz="7" rent="0" townid="1" size="58" clientid="0" beds="0" />
+	<house name="South Enigma Casino #1" houseid="2391" entryx="982" entryy="1031" entryz="7" rent="0" townid="1" size="57" clientid="0" beds="0" />
 	<house name="South Enigma Casino #2" houseid="2392" entryx="986" entryy="1031" entryz="7" rent="0" townid="1" size="57" clientid="0" beds="0" />
 	<house name="Gardeners House" houseid="2393" entryx="1008" entryy="1028" entryz="7" rent="0" townid="1" size="54" clientid="0" beds="0" />
 	<house name="Park Flat #2" houseid="2394" entryx="1047" entryy="976" entryz="6" rent="0" townid="1" size="28" clientid="0" beds="0" />

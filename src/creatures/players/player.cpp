@@ -6764,26 +6764,26 @@ Skulls_t Player::getSkullClient(const std::shared_ptr<Creature> &creature) {
 
 	const auto &player = creature->getPlayer();
 	if (player && player->getSkull() == SKULL_NONE) {
-		if (player.get() == this) {
-			if (std::ranges::any_of(unjustifiedKills, [&](const auto &kill) {
-					return kill.unavenged && (getTimeNow() - kill.time) < g_configManager().getNumber(ORANGE_SKULL_DURATION) * 24 * 60 * 60;
-				})) {
-				return SKULL_ORANGE;
-			}
-		}
-
-		if (player->hasKilled(getPlayer())) {
-			return SKULL_ORANGE;
-		}
-
-		if (player->hasAttacked(getPlayer())) {
-			return SKULL_YELLOW;
-		}
-
-		// Evolera: green skull disabled
-		// if (m_party && m_party == player->m_party) {
-		// 	return SKULL_GREEN;
+		// Evolera: orange skull disabled
+		// if (player.get() == this) {
+		// 	if (std::ranges::any_of(unjustifiedKills, [&](const auto &kill) {
+		// 			return kill.unavenged && (getTimeNow() - kill.time) < g_configManager().getNumber(ORANGE_SKULL_DURATION) * 24 * 60 * 60;
+		// 		})) {
+		// 		return SKULL_ORANGE;
+		// 	}
 		// }
+
+		// if (player->hasKilled(getPlayer())) {
+		// 	return SKULL_ORANGE;
+		// }
+
+		// if (player->hasAttacked(getPlayer())) {
+		// 	return SKULL_YELLOW;
+		// }
+
+		if (m_party && m_party == player->m_party) {
+			return SKULL_GREEN;
+		}
 	}
 	return Creature::getSkullClient(creature);
 }
