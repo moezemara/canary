@@ -535,6 +535,50 @@ function Player:onGainExperience(target, exp, rawExp)
 		return exp
 	end
 
+	-- ═══════════════════════════════════════════════════════════════════
+	-- TIERED MONSTER OVERRIDE
+	-- Tiered monsters bypass the entire vanilla pipeline. The formula below
+	-- computes levels gained directly from the monster's tier vs player level.
+	-- Non-tiered monsters fall through to the original code with zero changes.
+	-- ═══════════════════════════════════════════════════════════════════
+	if target:isMonster() and MonsterTiers.isTiered(target:getName()) then
+		-- Side effects: consume regular stamina and XP boost time (same as vanilla)
+		useStaminaXpBoost(self)
+		if configManager.getBoolean(configKeys.STAMINA_SYSTEM) then
+			useStamina(self, true)
+			self:setStaminaXpBoost(self:getFinalBonusStamina() * 100)
+		end
+
+		-- Minimum damage contribution check (>= 10% of monster max HP)
+		if not MonsterTiers.hasMinContribution(target, self) then
+			return 0
+		end
+
+		local referenceLevel = kv.scoped("server"):get("reference_level") or 1
+
+		-- Drain hunt stamina (scaled by player/reference ratio)
+		HuntStamina.onMonsterKill(self, referenceLevel)
+
+		-- Core formula: levelsGained = ratio × BASE_LEVELS
+		local playerLevel  = self:getLevel()
+		local levelsGained = MonsterTiers.getLevelsGained(target:getName(), playerLevel, referenceLevel)
+
+		-- Effective rate: stamina × base server rate × guild bonus × XP boost
+		local effectiveRate = ExpBonus.getEffectiveRate(self)
+
+		-- Hunt stamina efficiency (1.0 = full bar, 0.25 = depleted)
+		local huntRate = HuntStamina.getEfficiency(self)
+
+		-- Convert levels to raw exp via linear cost approximation (cost ≈ 200L/3)
+		local finalExp = math.floor(levelsGained * (200/3) * playerLevel * effectiveRate * huntRate)
+
+		-- Floor: always award at least the monster's own base XML exp
+		return math.max(MonsterTiers.getBaseExp(target:getName()), finalExp)
+	end
+	-- ═══════════════════════════════════════════════════════════════════
+	-- END TIERED MONSTER OVERRIDE — original pipeline continues below
+	-- ═══════════════════════════════════════════════════════════════════
+
 	-- Soul regeneration
 	local vocation = self:getVocation()
 	if self:getSoul() < vocation:getMaxSoul() and exp >= self:getLevel() then

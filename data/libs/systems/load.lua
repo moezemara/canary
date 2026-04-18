@@ -1,4 +1,6 @@
 -- Load systems functions
+dofile(CORE_DIRECTORY .. "/libs/systems/monster_tiers.lua")
+dofile(CORE_DIRECTORY .. "/libs/systems/hunting_stamina.lua")
 dofile(CORE_DIRECTORY .. "/libs/systems/exp_bonus.lua")
 dofile(CORE_DIRECTORY .. "/libs/systems/blessing.lua")
 dofile(CORE_DIRECTORY .. "/libs/systems/concoctions.lua")

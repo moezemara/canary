@@ -16,6 +16,7 @@ local expRateTA = TalkAction("!exprate", "!bonuses", "!xprate")
 
 function expRateTA.onSay(player, words, param)
 	local bonuses, effectiveTotal = ExpBonus.getBreakdown(player)
+	local hunt = HuntStamina.getDisplayInfo(player)
 
 	local lines = { "--- Your EXP Multipliers ---" }
 	for _, b in ipairs(bonuses) do
@@ -23,6 +24,11 @@ function expRateTA.onSay(player, words, param)
 	end
 	lines[#lines + 1] = string.rep("-", 34)
 	lines[#lines + 1] = string.format("  %-24s %.1fx", "Effective Total:", effectiveTotal)
+	lines[#lines + 1] = ""
+	lines[#lines + 1] = string.format("  Hunt Stamina:  %d / %d  (efficiency: %.0f%%)",
+		math.floor(hunt.points), hunt.max, hunt.efficiency * 100)
+	lines[#lines + 1] = string.format("  Idle to full:  ~%.0fh from current",
+		hunt.hoursToFull)
 
 	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, table.concat(lines, "\n"))
 	return false

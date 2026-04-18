@@ -159,6 +159,9 @@ function pvpExp.onDeath(creature, corpse, killer, mostDamageKiller, lastHitUnjus
 			attacker:addExperience(finalExp, PvPExpConfig.SHOW_EXP_TEXT)
 		end
 
+		-- Restore hunt stamina proportional to kill quality (same ratio as exp formula)
+		HuntStamina.onPvPKill(attacker, ratio)
+
 		-- Drain stamina
 		local newStamina = math.max(0, attacker:getStamina() - PvPExpConfig.STAMINA_DRAIN_PER_KILL)
 		attacker:setStamina(newStamina)
